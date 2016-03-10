@@ -12,24 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ISRMUL.Control.Page;
 
-namespace ISRMUL
+namespace ISRMUL.Control.Page
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для PageControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PageControl : UserControl
     {
-        public MainWindow()
+
+        public PageControl()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            var pages = Pages.Pages.Items;
-            pages.Add(new PageControl());
         }
     }
 }
