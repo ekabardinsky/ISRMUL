@@ -93,6 +93,13 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Control\" />
+    <Folder Include="Manuscript\" />
+    <Folder Include="Recongnition\Alphabet\" />
+    <Folder Include="Recongnition\Neokognitron\" />
+    <Folder Include="Recongnition\Segmentation\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
