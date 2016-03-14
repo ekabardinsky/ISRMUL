@@ -53,6 +53,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Control\Editor\EditorViewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Control\Page\PageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -69,6 +73,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Control\Editor\EditorViewControl.xaml.cs">
+      <DependentUpon>EditorViewControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Control\Page\PageControl.xaml.cs">
       <DependentUpon>PageControl.xaml</DependentUpon>
     </Compile>
@@ -81,6 +88,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Manuscript\IRefreshable.cs" />
     <Compile Include="Manuscript\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -121,6 +129,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Control\Page\images\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Control\Editor\images\rectangle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
