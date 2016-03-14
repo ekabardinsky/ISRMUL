@@ -99,8 +99,13 @@ namespace ISRMUL.Control.Page
 
         private void Pages_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            PageControl page = Pages.SelectedItem as PageControl;
-            pageViewProject.CurrentPage = page.Image.Source as BitmapImage;
+            try
+            {
+                PageControl page = Pages.SelectedItem as PageControl;
+                pageViewProject.CurrentPage = page.Image.Source as BitmapImage;
+                pageViewProject.Refresh();
+            }
+            catch { }
         }
 
         #endregion

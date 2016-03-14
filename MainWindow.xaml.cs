@@ -41,7 +41,7 @@ namespace ISRMUL
 
         void newProject()
         {
-            CurrentProject = new Manuscript.Project(Pages);
+            CurrentProject = new Manuscript.Project(new Manuscript.IRefreshable[] { Pages, Editor });
             ProjectReady = true;
             CurrentProject.Refresh();
         }

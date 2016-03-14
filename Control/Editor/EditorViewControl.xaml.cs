@@ -30,16 +30,16 @@ namespace ISRMUL.Control.Editor
        
 
         #region dependency
-        public static readonly DependencyProperty CurrentProjectProperty = DependencyProperty.Register("editorViewProject", typeof(Manuscript.Project), typeof(EditorViewControl));
+        public static readonly DependencyProperty editorViewProjectProperty = DependencyProperty.Register("editorViewProject", typeof(Manuscript.Project), typeof(EditorViewControl));
         public Manuscript.Project editorViewProject
         {
             get
             {
-                return this.GetValue(CurrentProjectProperty) as Manuscript.Project;
+                return this.GetValue(editorViewProjectProperty) as Manuscript.Project;
             }
             set
             {
-                this.SetValue(CurrentProjectProperty, value);
+                this.SetValue(editorViewProjectProperty, value);
             }
         }
         #endregion
@@ -47,30 +47,54 @@ namespace ISRMUL.Control.Editor
         #region event handler
         private void Canvas_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
-            Manuscript.SymbolWindow symbol = new Manuscript.SymbolWindow(FindResource("Image") as Image,FindResource("Canvas") as Canvas,e.GetPosition(sender as Canvas),40,40);
-            AddRectangle(symbol);
-        }
+            Manuscript.SymbolWindow symbol = new Manuscript.SymbolWindow(editorViewProject.CurrentPage, Canvas, e.GetPosition(Canvas), 45, 45);
+
+            editorViewProject.AddToSymbolWindows(editorViewProject.CurrentPage,symbol);
+
+            Refresh();
+        } 
+
         #endregion
 
         #region command
 
         void AddRectangle(Manuscript.SymbolWindow symbol)
         {
+            WindowControl window = new WindowControl();
+            window.Width = symbol.CanvasWidth;
+            window.Height = symbol.CanvasHeight;
 
-        } 
-        
+            Canvas.Children.Add(window);
+            Canvas.SetLeft(window, symbol.CanvasCoordinates.X);
+            Canvas.SetTop(window, symbol.CanvasCoordinates.Y);
+        }
+
+        void Clear()
+        {
+            Canvas.Children.Clear();
+        }
+
         public void Refresh()
         {
-            throw new NotImplementedException();
+            if (editorViewProject.CurrentPage == null) return;
+            Clear(); 
+
+            foreach (Manuscript.SymbolWindow symbol in editorViewProject.getSymbolWindows(editorViewProject.CurrentPage))
+            {
+                AddRectangle(symbol);
+            }
         }
 
         #endregion
+
+       
     }
 
-    enum Operation
+    public enum Operation
     {
         NewRectangle,
-        Concatinate,
-        Split
+        Union,
+        Split,
+        Explore
     }
 }

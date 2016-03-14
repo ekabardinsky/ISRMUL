@@ -14,16 +14,31 @@ namespace ISRMUL.Manuscript
     {
         public List<BitmapImage> Pages { get; set; }
         public List<IRefreshable> Views { get; set; }
-        public List<SymbolWindow> SymbolWindows { get; set; }
+        Dictionary<BitmapImage,List<SymbolWindow>> SymbolWindows { get; set; }
 
-        public Project(Control.Page.PageViewControl pageView)
+        public Project(params IRefreshable [] controls)
         {
             Pages = new List<BitmapImage>();
-            Views = new List<IRefreshable>();
-            SymbolWindows = new List<SymbolWindow>();
-            Views.Add(pageView);
+            Views = new List<IRefreshable>(controls);
+            SymbolWindows = new Dictionary<BitmapImage, List<SymbolWindow>>(); 
+        }
+        #region getters
+        public List<SymbolWindow> getSymbolWindows(BitmapImage image)
+        {
+            
+            if(!SymbolWindows.ContainsKey(image))
+            {
+                SymbolWindows.Add(image,new List<SymbolWindow>());
+            }
+            return SymbolWindows[image];
         }
 
+        public void AddToSymbolWindows(BitmapImage image, SymbolWindow symbol)
+        {
+            getSymbolWindows(image).Add(symbol);
+        }
+
+        #endregion
         #region dependency property
         public static readonly DependencyProperty CurrentPageProperty;
 
@@ -40,8 +55,6 @@ namespace ISRMUL.Manuscript
         
         #endregion
 
-        
-
         #region commands
         public void Refresh()
         {
@@ -51,53 +64,5 @@ namespace ISRMUL.Manuscript
         #endregion
     }
 
-    public class SymbolWindow
-    {
-        public Point RealCoordinates { get; set; }
-        public Point CanvasCoordinates
-        {
-            get
-            { 
-                return new Point(RealCoordinates.X * dx, RealCoordinates.Y * dy);
-            }
-            set
-            {  
-                RealCoordinates = new Point(value.X * dx, value.Y * dy);
-            }
-        }
-
-        public Image Image { get; set; }
-        public Canvas Canvas { get; set; }
-
-        double dx { get { return Canvas.ActualWidth * 1.0 / Image.Source.Width; } }
-        double dy { get { return Canvas.ActualHeight * 1.0 / Image.Source.Height; } }
-
-        public double RealWidth { get; set; }
-        public double RealHeight { get; set; }
-        public double CanvasWidth
-        {
-            get
-            { 
-                return RealWidth * dx;
-            }
-            set
-            {
-                RealWidth = value / dx;
-            }
-        }
-        public double CanvasHeight
-        {
-            get { return RealHeight * dy; }
-            set { RealHeight = value / dy; }
-        }
-
-        public SymbolWindow(Image image, Canvas canvas, Point CanvasCoord, double CanvasW, double CanvasH)
-        {
-            CanvasHeight = CanvasH;
-            CanvasWidth = CanvasW;
-            Image = image;
-            Canvas = canvas;
-            CanvasCoordinates = CanvasCoord;
-        }
-    }
+    
 }

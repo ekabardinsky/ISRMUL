@@ -57,6 +57,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Control\Editor\ToolView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Editor\WindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Control\Page\PageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -76,6 +84,12 @@
     <Compile Include="Control\Editor\EditorViewControl.xaml.cs">
       <DependentUpon>EditorViewControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\Editor\ToolView.xaml.cs">
+      <DependentUpon>ToolView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Editor\WindowControl.xaml.cs">
+      <DependentUpon>WindowControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Control\Page\PageControl.xaml.cs">
       <DependentUpon>PageControl.xaml</DependentUpon>
     </Compile>
@@ -90,6 +104,7 @@
   <ItemGroup>
     <Compile Include="Manuscript\IRefreshable.cs" />
     <Compile Include="Manuscript\Project.cs" />
+    <Compile Include="Manuscript\SymbolWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -132,6 +147,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Control\Editor\images\rectangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Control\Editor\images\cursor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Control\Editor\images\split.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Control\Editor\images\union.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

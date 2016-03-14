@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:window="clr-namespace:ISRMUL.Control.Editor"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600" Name="Editor">
     <Grid>
@@ -20,33 +21,13 @@
                     <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Image Name="Image" Grid.Column="1" Source="{Binding ElementName=Editor, Path=editorViewProject.CurrentPage, Mode=OneWay}" MouseDown="Canvas_MouseDown_1"/>
-                <Canvas Name="Canvas" Grid.Column="1" MouseDown="Canvas_MouseDown_1" MouseLeftButtonDown="Canvas_MouseDown_1">
+                 <Canvas Name="Canvas" Grid.Column="1" MouseDown="Canvas_MouseDown_1">
+                    <Canvas.Background>
+                        <ImageBrush Stretch="Uniform" ImageSource="{Binding editorViewProject.CurrentPage, ElementName=Editor, Mode=OneWay}"/>
+                    </Canvas.Background>
                 </Canvas>
-               
             </Grid>
-        </Border>
-        
-        <Grid Grid.Column="1">
-            <Grid.Background>
-                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveBorderColorKey}}"/>
-            </Grid.Background>
-            <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-                <Button Grid.Row="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
-                    <Image Source="images/rectangle.png" >
-                    <Image.Effect>
-                        <DropShadowEffect/>
-                    </Image.Effect>
-                </Image>
-                </Button> 
-                <Button Grid.Row="1"/>
-            </Grid>
-        
+        </Border> 
+        <window:ToolView Grid.Column="1"/>
     </Grid>
 </UserControl>
