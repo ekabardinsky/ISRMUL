@@ -53,6 +53,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Recongnition\Segmentation\MeanShift\Cluster.cs" />
+    <Compile Include="Recongnition\Segmentation\MeanShift\MeanShiftSolver.cs" />
+    <Compile Include="Recongnition\Segmentation\MeanShift\Point.cs" />
     <Page Include="Control\Editor\EditorViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -134,7 +137,6 @@
   <ItemGroup>
     <Folder Include="Recongnition\Alphabet\" />
     <Folder Include="Recongnition\Neokognitron\" />
-    <Folder Include="Recongnition\Segmentation\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Control\Page\images\error.png" />
@@ -156,6 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Control\Editor\images\union.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Control\Editor\images\segmentation.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

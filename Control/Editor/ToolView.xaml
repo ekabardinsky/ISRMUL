@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:button="clr-namespace:ISRMUL.Control.Editor"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid x:Name="MainGrid">
@@ -12,20 +13,46 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/> 
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" x:Name="Explore" PreviewMouseDown="Explore_MouseDown_1" >
-            <Button.Background>
-                <SolidColorBrush Color="#FFDDDDDD"/>
-            </Button.Background>
-            <Image Source="images/cursor.png"/>
+        
+        <Button Grid.Row="0" x:Name="Explore" PreviewMouseDown="Explore_MouseDown_1" > 
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="images/cursor.png"/>
+                <TextBlock Grid.Row="1" Text="Выбрать" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="Times New Roman"/>
+            </Grid>
         </Button>
         <Button Grid.Row="1" x:Name="NewRectangle" PreviewMouseDown="Explore_MouseDown_1">
-            <Image Source="images/rectangle.png"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="images/rectangle.png"/>
+                <TextBlock Grid.Row="1" Text="Добавить" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="Times New Roman"/>
+            </Grid>
         </Button>
         <Button Grid.Row="2" x:Name="Split" PreviewMouseDown="Explore_MouseDown_1">
-            <Image Source="images/split.png"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="images/split.png"/>
+                <TextBlock Grid.Row="1" Text="Разделить" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="Times New Roman"/>
+            </Grid>
         </Button>
         <Button Grid.Row="3" x:Name="Union" PreviewMouseDown="Explore_MouseDown_1">
-            <Image Source="images/union.png"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="images/union.png"/>
+                <TextBlock Grid.Row="1" Text="Объединить" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="Times New Roman"/>
+            </Grid>
         </Button>
     </Grid>
 </UserControl>

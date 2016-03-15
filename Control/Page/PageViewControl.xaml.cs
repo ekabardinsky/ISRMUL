@@ -103,7 +103,7 @@ namespace ISRMUL.Control.Page
             {
                 PageControl page = Pages.SelectedItem as PageControl;
                 pageViewProject.CurrentPage = page.Image.Source as BitmapImage;
-                pageViewProject.Refresh();
+                pageViewProject.Views.Where(x=>x is Editor.EditorViewControl).FirstOrDefault().Refresh();
             }
             catch { }
         }

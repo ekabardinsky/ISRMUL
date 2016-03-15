@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using ISRMUL.Control;
 using System.Windows;
 using System.Windows.Controls;
+using ISRMUL.Recognition;
 
 namespace ISRMUL.Manuscript
 {
@@ -61,6 +62,56 @@ namespace ISRMUL.Manuscript
             foreach (IRefreshable view in Views)
                 view.Refresh();
         }
+        #endregion
+
+        #region segmentation
+
+        public void SegmentationCurrent(double windowHeight, double windowWidth,Canvas canvas,BitmapImage image)
+        {
+            var points = getPointFromImage(CurrentPage);
+            ISRMUL.Recognition.MeanShift.MeanShiftSolver solver = new Recognition.MeanShift.MeanShiftSolver(new double[] { windowWidth, windowHeight }, points);
+            
+            solver.Compute(0.2, 1000);
+            solver.Clustering(3);
+
+            var symbols = solver.Clusters.Select(x => new SymbolWindow(image, canvas, x));
+            var original = getSymbolWindows(image);
+            original.Clear();
+            original.AddRange(symbols);
+        }
+
+        List<ISRMUL.Recognition.MeanShift.Point> getPointFromImage(BitmapImage img)
+        {
+            List<ISRMUL.Recognition.MeanShift.Point> points = new List<Recognition.MeanShift.Point>();
+
+            int stride = img.PixelWidth * 4;
+            int size = img.PixelHeight * stride;
+            byte[] pixels = new byte[size];
+            img.CopyPixels(pixels, stride, 0);
+
+            for (int y = 0; y < img.PixelHeight; y++)
+            {
+                for (int x = 0; x < img.PixelWidth; x++)
+                {
+                    int index = y * stride + 4 * x;
+                    byte red = pixels[index];
+                    byte green = pixels[index + 1];
+                    byte blue = pixels[index + 2];
+                    byte alpha = pixels[index + 3];
+
+                    if (!isBackground(red, green, blue))
+                        points.Add(new ISRMUL.Recognition.MeanShift.Point(new double[] { x, y }) { R = red, G = green, B = blue });
+                }
+            }
+
+            return points;
+        }
+
+        bool isBackground(byte r, byte g, byte b)
+        {
+            return (r + g + b) < 700;
+        }
+
         #endregion
     }
 

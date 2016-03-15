@@ -21,13 +21,51 @@
                     <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                 <Canvas Name="Canvas" Grid.Column="1" MouseDown="Canvas_MouseDown_1">
-                    <Canvas.Background>
-                        <ImageBrush ImageSource="{Binding editorViewProject.CurrentPage, ElementName=Editor, Mode=OneWay}"/>
-                    </Canvas.Background> 
-                </Canvas>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer  Grid.Row="0" Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <Canvas Name="Canvas" MouseDown="Canvas_MouseDown_1" Height="{Binding ElementName=BackgroundBrush, Path=ImageSource.Height, Mode=OneWay}" Width="{Binding ElementName=BackgroundBrush, Path=ImageSource.Width, Mode=OneWay}">
+                        <Canvas.Effect>
+                            <DropShadowEffect/>
+                        </Canvas.Effect>
+                        <Canvas.Background>
+                            <ImageBrush x:Name="BackgroundBrush" ImageSource="{Binding editorViewProject.CurrentPage, ElementName=Editor, Mode=OneWay}" Stretch="Uniform"/>
+                        </Canvas.Background> 
+                    </Canvas>
+                </ScrollViewer>
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions> 
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <Slider x:Name="xSlider" Maximum="20" Value="10" Grid.Row="0" ValueChanged="xSlider_ValueChanged_1"/>
+                        <TextBlock x:Name="xLabel" Grid.Row="1"/>
+                        <Slider x:Name="ySlider" Maximum="20" Value="10" Grid.Row="2" ValueChanged="ySlider_ValueChanged_1"/>
+                        <TextBlock x:Name="yLabel"  Grid.Row="3"/>
+                    </Grid> 
+                    <Button Grid.Column="1" PreviewMouseDown="Button_MouseDown_1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="4*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="images/segmentation.png"/>
+                            <TextBlock Grid.Row="1" Text="Сегментировать" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontFamily="Times New Roman"/>
+                        </Grid>
+                    </Button>
+                </Grid>
             </Grid>
         </Border> 
-        <window:ToolView x:Name="Tool" Grid.Column="1" toolViewProject="{Binding ElementName=Editor, Path=editorViewProject, Mode=OneWay}"/>
+        <window:ToolView x:Name="Tool" Grid.Column="1" toolViewProject="{Binding ElementName=Editor, Path=editorViewProject, Mode=OneWay}" PreviewMouseDown="Tool_MouseDown_1"/>
     </Grid>
 </UserControl>

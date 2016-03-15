@@ -6,34 +6,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" Name="Window">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="45*"/>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="45*"/>
-            <ColumnDefinition Width="10*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="45*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="45*"/>
-            <RowDefinition Height="10*"/>
-        </Grid.RowDefinitions>
-        <Border Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Grid.RowSpan="5" Background="#00000000" BorderBrush="Lime" BorderThickness="3"/>
-
-
-        <Border Visibility="{Binding ElementName=Window, Path=Visible, Mode=OneWay}" Grid.Column="0" Grid.Row="0" Background="Blue" BorderBrush="White" CornerRadius="30" BorderThickness="2">
-            <TextBlock Text=">" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Times New Roman" FontSize="14" Foreground="White" RenderTransformOrigin="0.5,0.5">
-                <TextBlock.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="225"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </TextBlock.RenderTransform>
-            </TextBlock>
-        </Border>
+        <Border x:Name="Rectangle" BorderBrush="Lime" BorderThickness="3"/>
     </Grid>
 </UserControl>

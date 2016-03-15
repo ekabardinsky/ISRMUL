@@ -57,6 +57,7 @@ namespace ISRMUL.Control.Editor
         #endregion
 
         #region event handler
+
         private void Canvas_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
 
@@ -72,9 +73,39 @@ namespace ISRMUL.Control.Editor
                 splitStarted = true;
                 PaintSplitLine(splitStart, splitStart);
             }
-        }
+            else if (currentOperation == Operation.Explore)
+            {
+                var window = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).Where(x => x.CanvasPointInRectangle(e.GetPosition(Canvas))).FirstOrDefault();
+                if (window != null)
+                    window.Active = true;
 
-        
+                editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).ForEach(x => x.Active = x == window);
+
+                Refresh();
+            }
+            else if (currentOperation == Operation.Union)
+            {
+                var active = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).Where(x => x.Active).FirstOrDefault(); 
+                var window = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).Where(x => x.CanvasPointInRectangle(e.GetPosition(Canvas))).FirstOrDefault();
+                if (window != null)
+                {
+                    window.Active = true;
+                    if (active != null)
+                    {
+                        var all = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage);
+                        var newWindow = Union(active, window);
+                        all.Remove(window);
+                        all.Remove(active);
+                        all.Add(newWindow);
+                    }
+                }
+
+                editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).ForEach(x => x.Active = x == window);
+
+                Refresh();
+            }
+        }
+                
         private void Canvas_MouseMove_1(object sender, MouseEventArgs e)
         {
             if (currentOperation == Operation.Split && e.LeftButton == MouseButtonState.Pressed && splitStarted)
@@ -105,9 +136,52 @@ namespace ISRMUL.Control.Editor
             }
 
         }
+
+        private void Tool_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            ClearActivatedWindow();
+        }
+
+        private void Button_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            if (editorViewProject.CurrentPage == null) return;
+            editorViewProject.SegmentationCurrent(xSlider.Value,ySlider.Value,Canvas,editorViewProject.CurrentPage);
+            Refresh();
+        }
+
+        private void xSlider_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            try
+            {
+                xLabel.Text = "Ширина символа " + (int)xSlider.Value + " px";
+            }
+            catch { }
+        }
+
+        private void ySlider_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            try
+            {
+                yLabel.Text = "Ширина символа " + (int)ySlider.Value + " px";
+            }
+            catch { }
+        }
+
         #endregion
 
         #region visual tool
+
+        void ClearActivatedWindow()
+        {
+            editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).ForEach(x => x.Active = false);
+        }
+        Manuscript.SymbolWindow Union(Manuscript.SymbolWindow one, Manuscript.SymbolWindow two)
+        {
+            Point left = new Point(Math.Min(one.CanvasCoordinates.X, two.CanvasCoordinates.X), Math.Min(one.CanvasCoordinates.Y, two.CanvasCoordinates.Y));
+            Point Right = new Point(Math.Max(one.CanvasCoordinates.X + one.CanvasWidth, two.CanvasCoordinates.X + two.CanvasWidth), Math.Max(one.CanvasCoordinates.Y + one.CanvasHeight, two.CanvasCoordinates.Y + two.CanvasHeight));
+
+            return new Manuscript.SymbolWindow(one.Image, one.Canvas, left, Right.X - left.X, Right.Y - left.Y);
+        }
 
         void Split(Point start, Point end)
         {
@@ -115,7 +189,22 @@ namespace ISRMUL.Control.Editor
 
             List<Manuscript.SymbolWindow> windows = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage);
 
-            /// insert code here
+            //Manuscript.SymbolWindow original = windows.OrderBy(x => Math.Sqrt(Math.Pow(x.CanvasCoordinates.X - center.X, 2) + Math.Pow(x.CanvasCoordinates.Y - center.Y, 2))).FirstOrDefault();
+            Manuscript.SymbolWindow original = windows.Where(x => x.CanvasPointInRectangle(center)).FirstOrDefault();
+
+            if (original != null)
+            {
+                Manuscript.SymbolWindow one = new Manuscript.SymbolWindow(original.Image, original.Canvas, original.CanvasCoordinates, center.X - original.CanvasCoordinates.X,original.CanvasHeight);
+                Point twoCenter = new Point(one.CanvasCoordinates.X + one.CanvasWidth, original.CanvasCoordinates.Y);
+                Manuscript.SymbolWindow two = new Manuscript.SymbolWindow(original.Image, original.Canvas, twoCenter, original.CanvasWidth - one.CanvasWidth, original.CanvasHeight);
+
+                windows.Remove(original);
+                windows.Add(one);
+                windows.Add(two);
+
+                Refresh();
+            }
+
         }
 
         void PaintSplitLine(Point start, Point stop)
@@ -170,6 +259,11 @@ namespace ISRMUL.Control.Editor
             window.Width = symbol.CanvasWidth;
             window.Height = symbol.CanvasHeight;
 
+            if (symbol.Active)
+                window.Rectangle.BorderBrush = Brushes.BlueViolet;
+            else
+                window.Rectangle.BorderBrush = Brushes.Lime;
+
             Canvas.Children.Add(window);
             Canvas.SetLeft(window, symbol.CanvasCoordinates.X);
             Canvas.SetTop(window, symbol.CanvasCoordinates.Y);
@@ -192,6 +286,12 @@ namespace ISRMUL.Control.Editor
         }
 
         #endregion
+
+       
+
+        
+
+        
 
        
 
