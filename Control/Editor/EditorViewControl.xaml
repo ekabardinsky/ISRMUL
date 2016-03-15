@@ -12,7 +12,7 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Border BorderThickness="2,0" BorderBrush="Black">
-            <Grid>
+            <Grid MouseMove="Canvas_MouseMove_1" MouseUp="Canvas_MouseUp_1">
                 <Grid.Background>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}"/>
                 </Grid.Background>
@@ -23,11 +23,11 @@
                 </Grid.ColumnDefinitions>
                  <Canvas Name="Canvas" Grid.Column="1" MouseDown="Canvas_MouseDown_1">
                     <Canvas.Background>
-                        <ImageBrush Stretch="Uniform" ImageSource="{Binding editorViewProject.CurrentPage, ElementName=Editor, Mode=OneWay}"/>
-                    </Canvas.Background>
+                        <ImageBrush ImageSource="{Binding editorViewProject.CurrentPage, ElementName=Editor, Mode=OneWay}"/>
+                    </Canvas.Background> 
                 </Canvas>
             </Grid>
         </Border> 
-        <window:ToolView Grid.Column="1"/>
+        <window:ToolView x:Name="Tool" Grid.Column="1" toolViewProject="{Binding ElementName=Editor, Path=editorViewProject, Mode=OneWay}"/>
     </Grid>
 </UserControl>

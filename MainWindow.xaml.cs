@@ -54,7 +54,7 @@ namespace ISRMUL
 
         #endregion
 
-        #region property
+        #region dependency
 
         public static readonly DependencyProperty CurrentProjectProperty = DependencyProperty.Register("CurrentProject", typeof(Manuscript.Project), typeof(MainWindow));
         public Manuscript.Project CurrentProject

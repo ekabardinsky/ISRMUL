@@ -48,7 +48,13 @@ namespace ISRMUL.Manuscript
             get { return RealHeight * dy; }
             set { RealHeight = value / dy; }
         }
-
+        public Point CanvasCenter
+        {
+            get
+            {
+                return new Point(CanvasCoordinates.X + CanvasWidth / 2, CanvasCoordinates.Y + CanvasHeight / 2);
+            }
+        }
         public SymbolWindow(BitmapImage image, Canvas canvas, Point CanvasCoord, double CanvasW, double CanvasH)
         { 
             

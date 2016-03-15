@@ -31,11 +31,12 @@ namespace ISRMUL.Control.Editor
             SelectionBrush = new SolidColorBrush(Color.FromArgb(255, 153, 180, 208));
             StandarBrush = new SolidColorBrush(Color.FromArgb(255, 221, 221, 221));
 
-            CurrentOperation = Operation.Explore;
+            CurrentOperation = Operation.None;
         }
 
         private void Explore_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
+            if (MissingCurrentPage()) return;
             foreach (var child in MainGrid.Children)
             {
                 if (child is Button)
@@ -62,5 +63,26 @@ namespace ISRMUL.Control.Editor
             }
            
         }
+
+        private bool MissingCurrentPage()
+        {
+            return toolViewProject==null||toolViewProject.CurrentPage == null;
+        }
+
+
+        #region dependency
+        public static readonly DependencyProperty toolViewProjectProperty = DependencyProperty.Register("toolViewProject", typeof(Manuscript.Project), typeof(ToolView));
+        public Manuscript.Project toolViewProject
+        {
+            get
+            {
+                return this.GetValue(toolViewProjectProperty) as Manuscript.Project;
+            }
+            set
+            {
+                this.SetValue(toolViewProjectProperty, value);
+            }
+        }
+        #endregion
     }
 }
