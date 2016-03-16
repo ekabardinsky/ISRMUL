@@ -11,7 +11,8 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/> 
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         
         <Button Grid.Row="0" x:Name="Explore" PreviewMouseDown="Explore_MouseDown_1" > 
@@ -52,6 +53,16 @@
                 </Grid.RowDefinitions>
                 <Image Grid.Row="0" Source="images/union.png"/>
                 <TextBlock Grid.Row="1" Text="Объединить" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="Times New Roman"/>
+            </Grid>
+        </Button>
+        <Button Grid.Row="4" x:Name="Delete" PreviewMouseDown="Explore_MouseDown_1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="images/delete.png"/>
+                <TextBlock Grid.Row="1" Text="Удалить" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="Times New Roman"/>
             </Grid>
         </Button>
     </Grid>

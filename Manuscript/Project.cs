@@ -109,7 +109,7 @@ namespace ISRMUL.Manuscript
 
         bool isBackground(byte r, byte g, byte b)
         {
-            return (r + g + b) < 700;
+            return (r + g + b) < 100;
         }
 
         #endregion

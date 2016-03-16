@@ -47,6 +47,8 @@ namespace ISRMUL.Control.Editor
                     {
                         if (sender.Equals(Explore))
                             CurrentOperation = Operation.Explore;
+                        if (sender.Equals(Delete))
+                            CurrentOperation = Operation.Delete;
                         if (sender.Equals(NewRectangle))
                             CurrentOperation = Operation.NewRectangle;
                         if (sender.Equals(Split))

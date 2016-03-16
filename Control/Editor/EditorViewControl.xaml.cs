@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ISRMUL.Control.Editor
 {
@@ -83,6 +84,16 @@ namespace ISRMUL.Control.Editor
 
                 Refresh();
             }
+            else if (currentOperation == Operation.Delete)
+            {
+                var window = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).Where(x => x.CanvasPointInRectangle(e.GetPosition(Canvas))).FirstOrDefault();
+                if (window != null)
+                {
+                    editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).Remove(window);
+                    Refresh();
+                }
+                
+            }
             else if (currentOperation == Operation.Union)
             {
                 var active = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).Where(x => x.Active).FirstOrDefault(); 
@@ -145,8 +156,16 @@ namespace ISRMUL.Control.Editor
         private void Button_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
             if (editorViewProject.CurrentPage == null) return;
-            editorViewProject.SegmentationCurrent(xSlider.Value,ySlider.Value,Canvas,editorViewProject.CurrentPage);
-            Refresh();
+            var project = editorViewProject;
+            Action segmentation = new Action(() =>
+            {
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    project.SegmentationCurrent(xSlider.Value, ySlider.Value, Canvas, project.CurrentPage);
+                    Refresh();
+                }), DispatcherPriority.ApplicationIdle);
+            });
+            segmentation.BeginInvoke(null, null);
         }
 
         private void xSlider_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -171,8 +190,6 @@ namespace ISRMUL.Control.Editor
         {
             if (editorViewProject.CurrentPage == null) return;
             Point position = e.GetPosition(Canvas);
-            if ((position.X > 0 && position.X < Canvas.Height) && (position.Y > 0 && position.Y < Canvas.Height))
-                return;
             try
             {
                 double percent = 5;
@@ -333,6 +350,7 @@ namespace ISRMUL.Control.Editor
         Union,
         Split,
         Explore,
+        Delete,
         None
     }
 }

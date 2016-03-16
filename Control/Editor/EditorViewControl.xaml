@@ -22,7 +22,7 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="6*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <ScrollViewer  Grid.Row="0" Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
@@ -41,26 +41,45 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions> 
-                    <Grid Grid.Column="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="2*"/>
-                            <RowDefinition Height="2*"/>
-                            <RowDefinition Height="2*"/>
-                            <RowDefinition Height="2*"/>
-                        </Grid.RowDefinitions>
-                        <Slider x:Name="xSlider" Maximum="20" Value="10" Grid.Row="0" ValueChanged="xSlider_ValueChanged_1"/>
-                        <TextBlock x:Name="xLabel" Grid.Row="1"/>
-                        <Slider x:Name="ySlider" Maximum="20" Value="10" Grid.Row="2" ValueChanged="ySlider_ValueChanged_1"/>
-                        <TextBlock x:Name="yLabel"  Grid.Row="3"/>
-                    </Grid> 
+                    
+                    <TabControl>
+                        <TabItem Header="Ok" FontSize="10">
+                            <Button Grid.Column="1" PreviewMouseDown="Button_MouseDown_1">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="4*"/>
+                                        <RowDefinition Height="1*"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Grid.Row="1" Source="images/segmentation.png"/>
+                                    <TextBlock Grid.Row="2" Text="Сегментировать" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontFamily="Times New Roman"/>
+                                </Grid>
+                            </Button>
+                        </TabItem>
+                        <TabItem Header="Параметры">
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20*"/>
+                                    <RowDefinition Height="15*"/>
+                                    <RowDefinition Height="20*"/>
+                                    <RowDefinition Height="15*"/>
+                                </Grid.RowDefinitions>
+                                <Slider x:Name="xSlider" Maximum="20" Value="10" Grid.Row="0" ValueChanged="xSlider_ValueChanged_1"/>
+                                <TextBlock x:Name="xLabel" Text="Ширина символа 10 px" Grid.Row="1" FontSize="10"/>
+                                <Slider x:Name="ySlider" Maximum="20" Value="10" Grid.Row="2" ValueChanged="ySlider_ValueChanged_1"/>
+                                <TextBlock x:Name="yLabel" Text="Высота символа 10 px" Grid.Row="3" FontSize="10"/>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
                     <Button Grid.Column="1" PreviewMouseDown="Button_MouseDown_1">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
                                 <RowDefinition Height="4*"/>
                                 <RowDefinition Height="1*"/>
-                            </Grid.RowDefinitions>
-                            <Image Grid.Row="0" Source="images/segmentation.png"/>
-                            <TextBlock Grid.Row="1" Text="Сегментировать" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontFamily="Times New Roman"/>
+                            </Grid.RowDefinitions> 
+                            <Image Grid.Row="1" Source="images/segmentation.png"/>
+                            <TextBlock Grid.Row="2" Text="Сегментировать" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontFamily="Times New Roman"/>
                         </Grid>
                     </Button>
                 </Grid>
