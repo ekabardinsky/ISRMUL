@@ -157,15 +157,8 @@ namespace ISRMUL.Control.Editor
         {
             if (editorViewProject.CurrentPage == null) return;
             var project = editorViewProject;
-            Action segmentation = new Action(() =>
-            {
-                Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    project.SegmentationCurrent(xSlider.Value, ySlider.Value, Canvas, project.CurrentPage);
-                    Refresh();
-                }), DispatcherPriority.ApplicationIdle);
-            });
-            segmentation.BeginInvoke(null, null);
+            project.SegmentationCurrent(xSlider.Value, ySlider.Value, Canvas, project.CurrentPage);
+            Refresh();
         }
 
         private void xSlider_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
