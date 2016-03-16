@@ -162,11 +162,36 @@ namespace ISRMUL.Control.Editor
         {
             try
             {
-                yLabel.Text = "Ширина символа " + (int)ySlider.Value + " px";
+                yLabel.Text = "Высота символа " + (int)ySlider.Value + " px";
             }
             catch { }
         }
 
+        private void Grid_PreviewMouseWheel_1(object sender, MouseWheelEventArgs e)
+        {
+            if (editorViewProject.CurrentPage == null) return;
+            Point position = e.GetPosition(Canvas);
+            if ((position.X > 0 && position.X < Canvas.Height) && (position.Y > 0 && position.Y < Canvas.Height))
+                return;
+            try
+            {
+                double percent = 5;
+                double k = e.Delta > 0 ? 1 : -1;
+                double dH = k * Canvas.Height / 100 * percent;
+                double dW = k * Canvas.Width / 100 * percent;
+                double H = Canvas.Height + dH;
+                double W = Canvas.Width + dW;
+
+                if (H > 0 && W > 0)
+                {
+                    Canvas.Height = H;
+                    Canvas.Width = W;
+
+                    Refresh();
+                }
+            }
+            catch { }
+        }
         #endregion
 
         #region visual tool
@@ -286,6 +311,8 @@ namespace ISRMUL.Control.Editor
         }
 
         #endregion
+
+        
 
        
 

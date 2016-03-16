@@ -6,7 +6,7 @@
              xmlns:window="clr-namespace:ISRMUL.Control.Editor"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600" Name="Editor">
-    <Grid>
+    <Grid PreviewMouseWheel="Grid_PreviewMouseWheel_1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="1*"/>

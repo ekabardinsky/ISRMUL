@@ -17,8 +17,8 @@ namespace ISRMUL.Manuscript
 
         #region coordinates
 
-        double dx { get { return Canvas.ActualWidth * 1.0 / Image.Width; } }
-        double dy { get { return Canvas.ActualHeight * 1.0 / Image.Height; } }
+        double dx { get { return Canvas.Width * 1.0 / Image.Width; } }
+        double dy { get { return Canvas.Height * 1.0 / Image.Height; } }
         public Point RealCoordinates { get; set; }
         public Point CanvasCoordinates
         {
@@ -76,7 +76,7 @@ namespace ISRMUL.Manuscript
         {
 
             Image = image;
-            Canvas = canvas;
+            Canvas = canvas; 
             CanvasHeight = CanvasH;
             CanvasWidth = CanvasW;
             CanvasCoordinates = CanvasCoord;
@@ -87,7 +87,7 @@ namespace ISRMUL.Manuscript
 
             Image = image;
             Canvas = canvas;
-            Pixels = pixels;
+            Pixels = pixels; 
             double startX = pixels.Points.Min(x => x.Original[0]);
             double startY = pixels.Points.Min(x => x.Original[1]);
             double endX = pixels.Points.Max(x => x.Original[0]);
