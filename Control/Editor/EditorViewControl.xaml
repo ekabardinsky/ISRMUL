@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:window="clr-namespace:ISRMUL.Control.Editor"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="600" Name="Editor">
+             d:DesignHeight="600" d:DesignWidth="600" Name="Editor" PreviewKeyDown="Editor_KeyDown">
     <Grid PreviewMouseWheel="Grid_PreviewMouseWheel_1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
@@ -40,37 +40,21 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions> 
-                    
-                    <TabControl>
-                        <TabItem Header="Ok" FontSize="10">
-                            <Button Grid.Column="1" PreviewMouseDown="Button_MouseDown_1">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="1*"/>
-                                        <RowDefinition Height="4*"/>
-                                        <RowDefinition Height="1*"/>
-                                    </Grid.RowDefinitions>
-                                    <Image Grid.Row="1" Source="images/segmentation.png"/>
-                                    <TextBlock Grid.Row="2" Text="Сегментировать" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontFamily="Times New Roman"/>
-                                </Grid>
-                            </Button>
-                        </TabItem>
-                        <TabItem Header="Параметры">
-                            <Grid Grid.Column="0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="20*"/>
-                                    <RowDefinition Height="15*"/>
-                                    <RowDefinition Height="20*"/>
-                                    <RowDefinition Height="15*"/>
-                                </Grid.RowDefinitions>
-                                <Slider x:Name="xSlider" Maximum="20" Value="10" Grid.Row="0" ValueChanged="xSlider_ValueChanged_1"/>
-                                <TextBlock x:Name="xLabel" Text="Ширина символа 10 px" Grid.Row="1" FontSize="10"/>
-                                <Slider x:Name="ySlider" Maximum="20" Value="10" Grid.Row="2" ValueChanged="ySlider_ValueChanged_1"/>
-                                <TextBlock x:Name="yLabel" Text="Высота символа 10 px" Grid.Row="3" FontSize="10"/>
-                            </Grid>
-                        </TabItem>
-                    </TabControl>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0">
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20*"/>
+                            <RowDefinition Height="15*"/>
+                            <RowDefinition Height="20*"/>
+                            <RowDefinition Height="15*"/>
+                        </Grid.RowDefinitions>
+                        <Slider x:Name="xSlider" Maximum="20" Value="10" Grid.Row="0" ValueChanged="xSlider_ValueChanged_1"/>
+                        <TextBlock x:Name="xLabel" Text="Ширина символа 10 px" Grid.Row="1" FontSize="12"/>
+                        <Slider x:Name="ySlider" Maximum="20" Value="10" Grid.Row="2" ValueChanged="ySlider_ValueChanged_1"/>
+                        <TextBlock x:Name="yLabel" Text="Высота символа 10 px" Grid.Row="3" FontSize="12"/>
+                    </Grid>
+                    </Button>
                     <Button Grid.Column="1" PreviewMouseDown="Button_MouseDown_1">
                         <Grid>
                             <Grid.RowDefinitions>

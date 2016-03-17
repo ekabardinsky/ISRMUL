@@ -150,6 +150,7 @@ namespace ISRMUL.Control.Editor
 
         private void Tool_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
+            if (editorViewProject == null || editorViewProject.CurrentPage == null) return;
             ClearActivatedWindow();
         }
 
@@ -157,7 +158,7 @@ namespace ISRMUL.Control.Editor
         {
             if (editorViewProject.CurrentPage == null) return;
             var project = editorViewProject;
-            project.SegmentationCurrent(xSlider.Value, ySlider.Value, Canvas, project.CurrentPage);
+            project.SegmentationCurrent(ySlider.Value, xSlider.Value, Canvas, project.CurrentPage);
             Refresh();
         }
 
@@ -202,6 +203,85 @@ namespace ISRMUL.Control.Editor
             }
             catch { }
         }
+
+        private void Editor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (currentOperation == Operation.Explore)
+            {
+                var window = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).Where(x => x.Active).FirstOrDefault();
+                if (window != null)
+                {
+                    if (e.Key == Key.Up)
+                    {
+                        double y = window.CanvasCoordinates.Y - window.CanvasHeight / 10;
+                        window.CanvasCoordinates = new Point(window.CanvasCoordinates.X, (y > 0) ? y : 0);
+
+                        Refresh();
+                    }
+                    if (e.Key == Key.Down)
+                    {
+                        double y = window.CanvasCoordinates.Y + window.CanvasHeight / 10;
+                        window.CanvasCoordinates = new Point(window.CanvasCoordinates.X, (y < Canvas.Height - window.CanvasHeight) ? y : (Canvas.Height - window.CanvasHeight));
+
+                        Refresh();
+                    }
+                    if (e.Key == Key.Left)
+                    {
+                        double x = window.CanvasCoordinates.X - window.CanvasWidth / 10;
+                        window.CanvasCoordinates = new Point((x > 0) ? x : 0, window.CanvasCoordinates.Y);
+
+                        Refresh();
+                    }
+                    if (e.Key == Key.Right)
+                    {
+                        double x = window.CanvasCoordinates.X + window.CanvasWidth / 10;
+                        window.CanvasCoordinates = new Point((x < Canvas.Width - window.CanvasWidth) ? x : (Canvas.Width - window.CanvasWidth), window.CanvasCoordinates.Y);
+
+                        Refresh();
+                    }
+                    if (e.Key == Key.W)
+                    {
+                        window.CanvasHeight *= 0.95;
+
+                        Refresh();
+                    }
+                    if (e.Key == Key.S)
+                    {
+                        window.CanvasHeight *= 1.05;  
+
+                        Refresh();
+                    }
+                    if (e.Key == Key.A)
+                    {
+                        window.CanvasWidth *= 0.95; 
+
+                        Refresh();
+                    }
+                    if (e.Key == Key.D)
+                    {
+                        window.CanvasWidth *= 1.05;
+
+                        Refresh();
+                    }
+
+                    if (e.Key == Key.Space)
+                    {
+                        var allWindow = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage);
+                        int i = allWindow.IndexOf(window);
+
+                        if (i == allWindow.Count - 1)
+                            i = -1;
+
+                        window.Active = false;
+                        allWindow[i+1].Active = true;
+
+                        Refresh();
+                    }
+
+                }
+            }
+        }
+
         #endregion
 
         #region visual tool
@@ -311,8 +391,9 @@ namespace ISRMUL.Control.Editor
 
         public void Refresh()
         {
-            if (editorViewProject.CurrentPage == null) return;
             Clear(); 
+
+            if (editorViewProject.CurrentPage == null) return; 
 
             foreach (Manuscript.SymbolWindow symbol in editorViewProject.getSymbolWindows(editorViewProject.CurrentPage))
             {
@@ -321,6 +402,8 @@ namespace ISRMUL.Control.Editor
         }
 
         #endregion
+
+       
 
         
 
