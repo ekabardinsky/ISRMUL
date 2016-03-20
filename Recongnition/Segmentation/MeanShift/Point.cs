@@ -18,5 +18,17 @@ namespace ISRMUL.Recognition.MeanShift
             Value = val;
             Original = val;
         }
+
+        public override int GetHashCode()
+        {
+            int code = (int)(R * 1000000 + G * 1000 + B);
+            return code;
+        }
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Point))
+                return false;
+            return (obj as Point).GetHashCode() == GetHashCode();
+        }
     }
 }

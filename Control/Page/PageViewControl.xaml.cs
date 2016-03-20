@@ -29,7 +29,7 @@ namespace ISRMUL.Control.Page
         }
 
         #region commands
-        public void Add(BitmapImage image, string name)
+        public void Add(BitmapSource image, string name)
         {
             Page.PageControl page = new PageControl();
             page.Image.Source = image;
@@ -40,10 +40,10 @@ namespace ISRMUL.Control.Page
         {
             Pages.Items.Clear();
         }
-        public void AddRange(IEnumerable<BitmapImage> images)
+        public void AddRange(IEnumerable<BitmapSource> images)
         {
             int i = 0;
-            foreach (BitmapImage image in images)
+            foreach (BitmapSource image in images)
             {
                 Add(image, "Страница № " + (++i));
             }
@@ -78,9 +78,13 @@ namespace ISRMUL.Control.Page
             dialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png, *.bmp) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png; *.bmp";
             if (dialog.ShowDialog()==true)
             {
-                List<BitmapImage> images = new List<BitmapImage>(dialog.FileNames.Length);
+                List<BitmapSource> images = new List<BitmapSource>(dialog.FileNames.Length);
                 foreach (string path in dialog.FileNames)
-                    images.Add(new BitmapImage(new Uri(path)));
+                {
+                    var image = new BitmapImage(new Uri(path));
+                    
+                    images.Add(Utils.ImageConverter.cutBackground(image));
+                }
 
                 pageViewProject.Pages.AddRange(images);
                 Refresh();
@@ -102,7 +106,7 @@ namespace ISRMUL.Control.Page
             try
             {
                 PageControl page = Pages.SelectedItem as PageControl;
-                pageViewProject.CurrentPage = page.Image.Source as BitmapImage;
+                pageViewProject.CurrentPage = page.Image.Source as BitmapSource;
                 pageViewProject.Views.Where(x=>x is Editor.EditorViewControl).FirstOrDefault().Refresh();
             }
             catch { }

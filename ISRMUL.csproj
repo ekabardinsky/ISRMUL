@@ -53,9 +53,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Recongnition\Segmentation\KMeansPlus\Cluster.cs" />
+    <Compile Include="Recongnition\Segmentation\KMeansPlus\Evklid.cs" />
+    <Compile Include="Recongnition\Segmentation\KMeansPlus\IDistansion.cs" />
+    <Compile Include="Recongnition\Segmentation\KMeansPlus\KMeans.cs" />
+    <Compile Include="Recongnition\Segmentation\KMeansPlus\Vector.cs" />
     <Compile Include="Recongnition\Segmentation\MeanShift\Cluster.cs" />
     <Compile Include="Recongnition\Segmentation\MeanShift\MeanShiftSolver.cs" />
     <Compile Include="Recongnition\Segmentation\MeanShift\Point.cs" />
+    <Compile Include="Utils\ImageConverter.cs" />
     <Page Include="Control\Editor\EditorViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

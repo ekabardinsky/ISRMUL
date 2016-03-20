@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ISRMUL.Control.Page;
+using Microsoft.Win32;
 
 namespace ISRMUL
 {
@@ -35,6 +36,10 @@ namespace ISRMUL
             newProject();
         }
 
+        private void SaveProjectMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            saveProject();
+        }
         #endregion
 
         #region commands
@@ -44,6 +49,16 @@ namespace ISRMUL
             CurrentProject = new Manuscript.Project(new Manuscript.IRefreshable[] { Pages, Editor });
             ProjectReady = true;
             CurrentProject.Refresh();
+        }
+
+        void saveProject()
+        {
+            SaveFileDialog dialog = new SaveFileDialog(); 
+            dialog.Filter = "Project files (*.pro) | *.pro";
+            if (dialog.ShowDialog() == true)
+            {
+                
+            }
         }
 
         void CloseProject()
@@ -83,5 +98,7 @@ namespace ISRMUL
         }
 
         #endregion
+
+        
     }
 }

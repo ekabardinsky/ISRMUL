@@ -15,8 +15,8 @@
         <Menu>
             <MenuItem Header="Файл" Name="fileItem">
                 <MenuItem Header="Новый проект" Click="NewProjectMenuItem_Click"/>
-                <MenuItem Header="Открыть"/>
-                <MenuItem Header="Сохранить как" IsEnabled="{Binding ProjectReady, ElementName=MainForm, Mode=OneWay}"/>
+                <MenuItem Header="Открыть" />
+                <MenuItem Header="Сохранить как" IsEnabled="{Binding ProjectReady, ElementName=MainForm, Mode=OneWay}" Click="SaveProjectMenuItem_Click"/>
                 <MenuItem Header="Закрыть" IsEnabled="{Binding ProjectReady, ElementName=MainForm, Mode=OneWay}"/>
                 <Separator/>
                 <MenuItem Header="Выход"/>               

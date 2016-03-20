@@ -158,7 +158,7 @@ namespace ISRMUL.Control.Editor
         {
             if (editorViewProject.CurrentPage == null) return;
             var project = editorViewProject;
-            project.SegmentationCurrent(ySlider.Value, xSlider.Value, Canvas, project.CurrentPage);
+            project.SegmentationCurrent(ySlider.Value, xSlider.Value, Canvas, project.CurrentPage, 100);
             Refresh();
         }
 
@@ -364,6 +364,15 @@ namespace ISRMUL.Control.Editor
 
             Refresh();
         }
+
+        void PaintCurrenSymbol()
+        {
+            var symbol = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).Where(x => x.Active).FirstOrDefault();
+            if (symbol != null)
+            {
+                CurrentSymbol.Source = symbol.toImage();
+            }
+        }
         #endregion
 
 
@@ -377,7 +386,7 @@ namespace ISRMUL.Control.Editor
             if (symbol.Active)
                 window.Rectangle.BorderBrush = Brushes.BlueViolet;
             else
-                window.Rectangle.BorderBrush = Brushes.Lime;
+                window.Rectangle.BorderBrush = new SolidColorBrush(Color.FromArgb(100, 20, 200, 20));
 
             Canvas.Children.Add(window);
             Canvas.SetLeft(window, symbol.CanvasCoordinates.X);
@@ -399,6 +408,7 @@ namespace ISRMUL.Control.Editor
             {
                 AddRectangle(symbol);
             }
+            PaintCurrenSymbol();
         }
 
         #endregion

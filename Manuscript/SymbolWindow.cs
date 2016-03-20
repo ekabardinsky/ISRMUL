@@ -9,17 +9,20 @@ using System.Windows.Media.Imaging;
 
 namespace ISRMUL.Manuscript
 {
+    [Serializable]
     public class SymbolWindow
     {
-        
-        public BitmapImage Image { get; set; }
+
+        public BitmapSource Image { get; set; }
         public Canvas Canvas { get; set; }
 
         #region coordinates
-
+        Point _RC;
+        double RW;
+        double RH;
         double dx { get { return Canvas.Width * 1.0 / Image.Width; } }
         double dy { get { return Canvas.Height * 1.0 / Image.Height; } }
-        public Point RealCoordinates { get; set; }
+        public Point RealCoordinates { get { return _RC; } set { redacted = true; _RC = value; } }
         public Point CanvasCoordinates
         {
             get
@@ -30,9 +33,9 @@ namespace ISRMUL.Manuscript
             {
                 RealCoordinates = new Point(value.X / dx, value.Y / dy);
             }
-        } 
-        public double RealWidth { get; set; }
-        public double RealHeight { get; set; }
+        }
+        public double RealWidth { get { return RW; } set { redacted = true; RW = value; } }
+        public double RealHeight { get { return RH; } set { redacted = true; RH = value; } }
         public double CanvasWidth
         {
             get
@@ -66,13 +69,15 @@ namespace ISRMUL.Manuscript
             double y3=y1+CanvasHeight;
 
             return x2 < x3 && x2 > x1 && y2 < y3 && y2 > y1;
-        }
+        } 
 
         #endregion
 
         public bool Active { get; set; }
+        public List<ISRMUL.Recognition.MeanShift.Point> SegmentedPoint { get; set; }
+        bool redacted { get; set; }
 
-        public SymbolWindow(BitmapImage image, Canvas canvas, Point CanvasCoord, double CanvasW, double CanvasH)
+        public SymbolWindow(BitmapSource image, Canvas canvas, Point CanvasCoord, double CanvasW, double CanvasH)
         {
 
             Image = image;
@@ -81,13 +86,15 @@ namespace ISRMUL.Manuscript
             CanvasWidth = CanvasW;
             CanvasCoordinates = CanvasCoord;
             Active = false;
+            redacted = false;
         }
-        public SymbolWindow(BitmapImage image, Canvas canvas, ISRMUL.Recognition.MeanShift.Cluster pixels)
+        public SymbolWindow(BitmapSource image, Canvas canvas, ISRMUL.Recognition.MeanShift.Cluster pixels)
         {
 
             Image = image;
             Canvas = canvas;
-            Pixels = pixels; 
+            Pixels = pixels;
+            SegmentedPoint = pixels.Points;
             double startX = pixels.Points.Min(x => x.Original[0]);
             double startY = pixels.Points.Min(x => x.Original[1]);
             double endX = pixels.Points.Max(x => x.Original[0]);
@@ -96,10 +103,21 @@ namespace ISRMUL.Manuscript
             RealHeight = endY - startY;
             RealWidth = endX - startX; 
             Active = false;
+            redacted = false;
         }
 
         #region segmentation
         ISRMUL.Recognition.MeanShift.Cluster Pixels { get; set; }
+        public BitmapSource toImage()
+        {
+
+            List<ISRMUL.Recognition.MeanShift.Point> point;
+            if (redacted || SegmentedPoint==null)
+                point = Utils.ImageConverter.getPointFromImage(Image, (int)RealCoordinates.X, (int)RealCoordinates.Y, (int)RealWidth, (int)RealHeight);
+            else
+                point = SegmentedPoint;
+            return Utils.ImageConverter.pointToImage(point, (int)RealCoordinates.X, (int)RealCoordinates.Y, (int)RealWidth+1, (int)RealHeight+1);
+        }
         #endregion
     }
 }
