@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ISRMUL.Recognition.MeanShift
 {
+    [Serializable]
     public class Point
     {
         public double[] Value { get; set; }

@@ -13,8 +13,14 @@ namespace ISRMUL.Manuscript
     public class SymbolWindow
     {
 
-        public BitmapSource Image { get; set; }
-        public Canvas Canvas { get; set; }
+        public BitmapSource Image { get { return Project.Images[ImageKey]; } }
+
+        string ImageKey {get;set;}
+
+        public Canvas Canvas { get { return Project.Canvas; } }
+
+        [NonSerialized]
+        public Project Project;
 
         #region coordinates
         Point _RC;
@@ -77,22 +83,22 @@ namespace ISRMUL.Manuscript
         public List<ISRMUL.Recognition.MeanShift.Point> SegmentedPoint { get; set; }
         bool redacted { get; set; }
 
-        public SymbolWindow(BitmapSource image, Canvas canvas, Point CanvasCoord, double CanvasW, double CanvasH)
+        public SymbolWindow(string image, Project project, Point CanvasCoord, double CanvasW, double CanvasH)
         {
 
-            Image = image;
-            Canvas = canvas; 
+            ImageKey = image;
+            Project = project;
             CanvasHeight = CanvasH;
             CanvasWidth = CanvasW;
             CanvasCoordinates = CanvasCoord;
             Active = false;
             redacted = false;
         }
-        public SymbolWindow(BitmapSource image, Canvas canvas, ISRMUL.Recognition.MeanShift.Cluster pixels)
+        public SymbolWindow(string image, Project project, ISRMUL.Recognition.MeanShift.Cluster pixels)
         {
 
-            Image = image;
-            Canvas = canvas;
+            ImageKey = image;
+            Project = project;
             Pixels = pixels;
             SegmentedPoint = pixels.Points;
             double startX = pixels.Points.Min(x => x.Original[0]);

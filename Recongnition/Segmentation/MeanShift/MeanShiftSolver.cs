@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ISRMUL.Recognition.MeanShift
-{
+{ 
     public class MeanShiftSolver
     {
         public double[] H { get; set; }

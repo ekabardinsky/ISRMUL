@@ -51,7 +51,7 @@ namespace ISRMUL.Control.Page
         public void Refresh()
         {
             Clear();
-            if (pageViewProject != null) AddRange(pageViewProject.Pages);
+            if (pageViewProject != null) AddRange(pageViewProject.Images.Select(x=>x.Value));
         }
         #endregion
 
@@ -82,11 +82,11 @@ namespace ISRMUL.Control.Page
                 foreach (string path in dialog.FileNames)
                 {
                     var image = new BitmapImage(new Uri(path));
-                    
-                    images.Add(Utils.ImageConverter.cutBackground(image));
+
+                    try { pageViewProject.Images.Add(path, Utils.ImageConverter.cutBackground(image)); }
+                    catch { }
                 }
 
-                pageViewProject.Pages.AddRange(images);
                 Refresh();
             }
         }
@@ -96,7 +96,11 @@ namespace ISRMUL.Control.Page
             int index = Pages.SelectedIndex;
             if (index > -1)
             {
-                pageViewProject.Pages.RemoveAt(index);
+                var page = Pages.SelectedItem as PageControl;
+                var source = pageViewProject.Images.Where(x => x.Value == page.Image.Source).Select(x=>x.Key).FirstOrDefault();
+
+                if (source != null)
+                    pageViewProject.Images.Remove(source);
                 Refresh();
             }
         }

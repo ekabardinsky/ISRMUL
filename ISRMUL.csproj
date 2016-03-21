@@ -53,6 +53,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Control\Alphabet\AlphabetEditorView.xaml.cs">
+      <DependentUpon>AlphabetEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Alphabet\AlphabetToolView.xaml.cs">
+      <DependentUpon>AlphabetToolView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Alphabet\AlphabetView.xaml.cs">
+      <DependentUpon>AlphabetView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Manuscript\Alphabet.cs" />
     <Compile Include="Recongnition\Segmentation\KMeansPlus\Cluster.cs" />
     <Compile Include="Recongnition\Segmentation\KMeansPlus\Evklid.cs" />
     <Compile Include="Recongnition\Segmentation\KMeansPlus\IDistansion.cs" />
@@ -62,6 +72,18 @@
     <Compile Include="Recongnition\Segmentation\MeanShift\MeanShiftSolver.cs" />
     <Compile Include="Recongnition\Segmentation\MeanShift\Point.cs" />
     <Compile Include="Utils\ImageConverter.cs" />
+    <Page Include="Control\Alphabet\AlphabetEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Alphabet\AlphabetToolView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Alphabet\AlphabetView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Control\Editor\EditorViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -170,6 +192,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Control\Editor\images\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Control\Alphabet\images\folder.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

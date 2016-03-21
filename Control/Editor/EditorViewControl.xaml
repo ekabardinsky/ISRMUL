@@ -12,7 +12,7 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Border BorderThickness="2,0" BorderBrush="Black">
-            <Grid MouseMove="Canvas_MouseMove_1" MouseUp="Canvas_MouseUp_1">
+            <Grid PreviewMouseMove="Canvas_MouseMove_1" PreviewMouseUp="Canvas_MouseUp_1" PreviewMouseDown="Canvas_MouseDown_1">
                 <Grid.Background>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}"/>
                 </Grid.Background>
@@ -24,12 +24,12 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <ScrollViewer  Grid.Row="0" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                    <Canvas Name="Canvas" MouseDown="Canvas_MouseDown_1" Height="{Binding ElementName=BackgroundBrush, Path=ImageSource.Height, Mode=OneWay}" Width="{Binding ElementName=BackgroundBrush, Path=ImageSource.Width, Mode=OneWay}">
+                    <Canvas Name="Canvas"  Height="{Binding ElementName=BackgroundBrush, Path=ImageSource.Height, Mode=OneWay}" Width="{Binding ElementName=BackgroundBrush, Path=ImageSource.Width, Mode=OneWay}">
                         <Canvas.Effect>
                             <DropShadowEffect/>
                         </Canvas.Effect>
                         <Canvas.Background>
-                            <ImageBrush x:Name="BackgroundBrush" ImageSource="{Binding editorViewProject.CurrentPage, ElementName=Editor, Mode=OneWay}" Stretch="Uniform"/>
+                            <ImageBrush x:Name="BackgroundBrush" ImageSource="{Binding editorViewProject.CurrentPage, ElementName=Editor, Mode=OneWay}"/>
                         </Canvas.Background> 
                     </Canvas>
                 </ScrollViewer>

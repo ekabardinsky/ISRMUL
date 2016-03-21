@@ -13,35 +13,41 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ISRMUL.Manuscript
 {
-    [Serializable]
+    
     public class Project:DependencyObject
     {
-        public List<BitmapSource> Pages { get; set; } 
         public List<IRefreshable> Views { get; set; }
-
-        Dictionary<BitmapSource, List<SymbolWindow>> SymbolWindows { get; set; }
-
-        public Project(params IRefreshable [] controls)
+        public Canvas Canvas { get; set; }
+        Dictionary<string, List<SymbolWindow>> SymbolWindows { get; set; }
+        public Dictionary<string, BitmapSource> Images { get; set; }
+        public Project(Canvas Canvas, params IRefreshable [] controls)
         {
-            Pages = new List<BitmapSource>();
+            this.Canvas = Canvas;
             Views = new List<IRefreshable>(controls);
-            SymbolWindows = new Dictionary<BitmapSource, List<SymbolWindow>>(); 
+            SymbolWindows = new Dictionary<string, List<SymbolWindow>>();
+            Images = new Dictionary<string, BitmapSource>();
         }
 
         #region getters
-        public List<SymbolWindow> getSymbolWindows(BitmapSource image)
+        public List<SymbolWindow> getSymbolWindows(string key)
         {
-            
-            if(!SymbolWindows.ContainsKey(image))
+
+            if (!SymbolWindows.ContainsKey(key))
             {
-                SymbolWindows.Add(image,new List<SymbolWindow>());
+                SymbolWindows.Add(key, new List<SymbolWindow>());
+                Images.Add(key, new BitmapImage(new Uri(key)));
             }
-            return SymbolWindows[image];
+            return SymbolWindows[key];
         }
 
-        public void AddToSymbolWindows(BitmapSource image, SymbolWindow symbol)
+        public void AddToSymbolWindows(string key, SymbolWindow symbol)
         {
-            getSymbolWindows(image).Add(symbol);
+            getSymbolWindows(key).Add(symbol);
+        }
+
+        public string getCurrentKey()
+        {
+           return Images.Where(x => x.Value == CurrentPage).Select(x=>x.Key).First();
         }
 
         #endregion
@@ -73,7 +79,7 @@ namespace ISRMUL.Manuscript
 
         #region segmentation
 
-        public void SegmentationCurrent(double windowHeight, double windowWidth, Canvas canvas, BitmapSource image, int backThresh)
+        public void SegmentationCurrent(double windowHeight, double windowWidth, string key, int backThresh)
         {
             var points = Utils.ImageConverter.getPointFromImage(CurrentPage);
 
@@ -82,14 +88,72 @@ namespace ISRMUL.Manuscript
             solver.Compute(0.2, 1000);
             solver.Clustering(3);
 
-            var symbols = solver.Clusters.Select(x => new SymbolWindow(image, canvas, x));
-            var original = getSymbolWindows(image);
+            var symbols = solver.Clusters.Select(x => new SymbolWindow(key,this, x));
+            var original = getSymbolWindows(key);
             original.Clear();
             original.AddRange(symbols);
         }
 
         
 
+        #endregion
+
+        #region serialize
+        public static void Serialize(string filename, Project p)
+        {
+            FileStream fs = new FileStream(filename, FileMode.Create);
+
+            List<Object> o = new List<object>();
+
+            o.Add(p.SymbolWindows);
+            o.Add(p.Images.Select(x => x.Key).ToList());
+            o.Add(p.getCurrentKey());
+            // Construct a BinaryFormatter and use it to serialize the data to the stream.
+            BinaryFormatter formatter = new BinaryFormatter();
+            try
+            {
+                formatter.Serialize(fs, o);
+            }
+            finally
+            {
+                fs.Close();
+            }
+        }
+
+        public static Project DeSerialize(string filename,Canvas Canvas, params IRefreshable [] controls)
+        {
+            FileStream fs = new FileStream(filename, FileMode.Open);
+            Project p = null;
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                // Deserialize the hashtable from the file and 
+                // assign the reference to the local variable.
+                List<Object> o;
+                o = (List<Object>)formatter.Deserialize(fs);
+
+                p = new Project(Canvas, controls); 
+                //symbol
+                p.SymbolWindows = o[0] as Dictionary<string, List<SymbolWindow>>;
+                foreach (var item in p.SymbolWindows)
+                {
+                    item.Value.ForEach(x => x.Project = p);
+                }
+                //images
+                var images = o[1] as List<string>;
+                foreach (string s in images)
+                    p.Images.Add(s, Utils.ImageConverter.cutBackground(new BitmapImage(new Uri(s))));
+
+                p.CurrentPage = p.Images[o[2] as string];
+            }
+            finally
+            {
+                fs.Close();
+            }
+
+            return p;
+        }
         #endregion
     }
 

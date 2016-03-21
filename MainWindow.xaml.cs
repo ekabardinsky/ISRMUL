@@ -35,6 +35,10 @@ namespace ISRMUL
         {
             newProject();
         }
+        private void OpenProjectMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            openProject();
+        }
 
         private void SaveProjectMenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -46,7 +50,7 @@ namespace ISRMUL
 
         void newProject()
         {
-            CurrentProject = new Manuscript.Project(new Manuscript.IRefreshable[] { Pages, Editor });
+            CurrentProject = new Manuscript.Project(Editor.Canvas, new Manuscript.IRefreshable[] { Pages, Editor });
             ProjectReady = true;
             CurrentProject.Refresh();
         }
@@ -57,7 +61,19 @@ namespace ISRMUL
             dialog.Filter = "Project files (*.pro) | *.pro";
             if (dialog.ShowDialog() == true)
             {
-                
+                Manuscript.Project.Serialize(dialog.FileName, CurrentProject);
+            }
+        }
+
+        void openProject()
+        {
+            OpenFileDialog dialog = new OpenFileDialog(); 
+            dialog.Filter = "Project files (*.pro) | *.pro";
+            if (dialog.ShowDialog() == true)
+            {
+                CurrentProject = Manuscript.Project.DeSerialize(dialog.FileName, Editor.Canvas, new Manuscript.IRefreshable[] { Pages, Editor });
+                CurrentProject.Refresh();
+                ProjectReady = true;
             }
         }
 

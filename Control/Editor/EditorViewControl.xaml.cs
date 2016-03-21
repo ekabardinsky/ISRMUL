@@ -76,34 +76,34 @@ namespace ISRMUL.Control.Editor
             }
             else if (currentOperation == Operation.Explore)
             {
-                var window = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).Where(x => x.CanvasPointInRectangle(e.GetPosition(Canvas))).FirstOrDefault();
+                var window = editorViewProject.getSymbolWindows(editorViewProject.getCurrentKey()).Where(x => x.CanvasPointInRectangle(e.GetPosition(Canvas))).FirstOrDefault();
                 if (window != null)
                     window.Active = true;
 
-                editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).ForEach(x => x.Active = x == window);
+                editorViewProject.getSymbolWindows(editorViewProject.getCurrentKey()).ForEach(x => x.Active = x == window);
 
                 Refresh();
             }
             else if (currentOperation == Operation.Delete)
             {
-                var window = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).Where(x => x.CanvasPointInRectangle(e.GetPosition(Canvas))).FirstOrDefault();
+                var window = editorViewProject.getSymbolWindows(editorViewProject.getCurrentKey()).Where(x => x.CanvasPointInRectangle(e.GetPosition(Canvas))).FirstOrDefault();
                 if (window != null)
                 {
-                    editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).Remove(window);
+                    editorViewProject.getSymbolWindows(editorViewProject.getCurrentKey()).Remove(window);
                     Refresh();
                 }
                 
             }
             else if (currentOperation == Operation.Union)
             {
-                var active = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).Where(x => x.Active).FirstOrDefault(); 
-                var window = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).Where(x => x.CanvasPointInRectangle(e.GetPosition(Canvas))).FirstOrDefault();
+                var active = editorViewProject.getSymbolWindows(editorViewProject.getCurrentKey()).Where(x => x.Active).FirstOrDefault();
+                var window = editorViewProject.getSymbolWindows(editorViewProject.getCurrentKey()).Where(x => x.CanvasPointInRectangle(e.GetPosition(Canvas))).FirstOrDefault();
                 if (window != null)
                 {
                     window.Active = true;
                     if (active != null)
                     {
-                        var all = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage);
+                        var all = editorViewProject.getSymbolWindows(editorViewProject.getCurrentKey());
                         var newWindow = Union(active, window);
                         all.Remove(window);
                         all.Remove(active);
@@ -111,7 +111,7 @@ namespace ISRMUL.Control.Editor
                     }
                 }
 
-                editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).ForEach(x => x.Active = x == window);
+                editorViewProject.getSymbolWindows(editorViewProject.getCurrentKey()).ForEach(x => x.Active = x == window);
 
                 Refresh();
             }
@@ -158,7 +158,7 @@ namespace ISRMUL.Control.Editor
         {
             if (editorViewProject.CurrentPage == null) return;
             var project = editorViewProject;
-            project.SegmentationCurrent(ySlider.Value, xSlider.Value, Canvas, project.CurrentPage, 100);
+            project.SegmentationCurrent(ySlider.Value, xSlider.Value, project.getCurrentKey(), 100);
             Refresh();
         }
 
@@ -208,7 +208,7 @@ namespace ISRMUL.Control.Editor
         {
             if (currentOperation == Operation.Explore)
             {
-                var window = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).Where(x => x.Active).FirstOrDefault();
+                var window = editorViewProject.getSymbolWindows(editorViewProject.getCurrentKey()).Where(x => x.Active).FirstOrDefault();
                 if (window != null)
                 {
                     if (e.Key == Key.Up)
@@ -266,7 +266,7 @@ namespace ISRMUL.Control.Editor
 
                     if (e.Key == Key.Space)
                     {
-                        var allWindow = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage);
+                        var allWindow = editorViewProject.getSymbolWindows(editorViewProject.getCurrentKey());
                         int i = allWindow.IndexOf(window);
 
                         if (i == allWindow.Count - 1)
@@ -288,30 +288,30 @@ namespace ISRMUL.Control.Editor
 
         void ClearActivatedWindow()
         {
-            editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).ForEach(x => x.Active = false);
+            editorViewProject.getSymbolWindows(editorViewProject.getCurrentKey()).ForEach(x => x.Active = false);
         }
         Manuscript.SymbolWindow Union(Manuscript.SymbolWindow one, Manuscript.SymbolWindow two)
         {
             Point left = new Point(Math.Min(one.CanvasCoordinates.X, two.CanvasCoordinates.X), Math.Min(one.CanvasCoordinates.Y, two.CanvasCoordinates.Y));
             Point Right = new Point(Math.Max(one.CanvasCoordinates.X + one.CanvasWidth, two.CanvasCoordinates.X + two.CanvasWidth), Math.Max(one.CanvasCoordinates.Y + one.CanvasHeight, two.CanvasCoordinates.Y + two.CanvasHeight));
 
-            return new Manuscript.SymbolWindow(one.Image, one.Canvas, left, Right.X - left.X, Right.Y - left.Y);
+            return new Manuscript.SymbolWindow(editorViewProject.getCurrentKey(), editorViewProject, left, Right.X - left.X, Right.Y - left.Y);
         }
 
         void Split(Point start, Point end)
         {
             Point center = new Point((start.X + end.X) / 2, (start.Y + end.Y) / 2);
 
-            List<Manuscript.SymbolWindow> windows = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage);
+            List<Manuscript.SymbolWindow> windows = editorViewProject.getSymbolWindows(editorViewProject.getCurrentKey());
 
             //Manuscript.SymbolWindow original = windows.OrderBy(x => Math.Sqrt(Math.Pow(x.CanvasCoordinates.X - center.X, 2) + Math.Pow(x.CanvasCoordinates.Y - center.Y, 2))).FirstOrDefault();
             Manuscript.SymbolWindow original = windows.Where(x => x.CanvasPointInRectangle(center)).FirstOrDefault();
 
             if (original != null)
             {
-                Manuscript.SymbolWindow one = new Manuscript.SymbolWindow(original.Image, original.Canvas, original.CanvasCoordinates, center.X - original.CanvasCoordinates.X,original.CanvasHeight);
+                Manuscript.SymbolWindow one = new Manuscript.SymbolWindow(editorViewProject.getCurrentKey(), editorViewProject, original.CanvasCoordinates, center.X - original.CanvasCoordinates.X, original.CanvasHeight);
                 Point twoCenter = new Point(one.CanvasCoordinates.X + one.CanvasWidth, original.CanvasCoordinates.Y);
-                Manuscript.SymbolWindow two = new Manuscript.SymbolWindow(original.Image, original.Canvas, twoCenter, original.CanvasWidth - one.CanvasWidth, original.CanvasHeight);
+                Manuscript.SymbolWindow two = new Manuscript.SymbolWindow(editorViewProject.getCurrentKey(), editorViewProject, twoCenter, original.CanvasWidth - one.CanvasWidth, original.CanvasHeight);
 
                 windows.Remove(original);
                 windows.Add(one);
@@ -358,16 +358,16 @@ namespace ISRMUL.Control.Editor
         {
             if (end.X - start.X < 20 && end.Y - start.Y < 20) return;
 
-            Manuscript.SymbolWindow symbol = new Manuscript.SymbolWindow(editorViewProject.CurrentPage, Canvas, start, end.X - start.X, end.Y - start.Y);
+            Manuscript.SymbolWindow symbol = new Manuscript.SymbolWindow(editorViewProject.getCurrentKey(), editorViewProject, start, end.X - start.X, end.Y - start.Y);
 
-            editorViewProject.AddToSymbolWindows(editorViewProject.CurrentPage, symbol);
+            editorViewProject.AddToSymbolWindows(editorViewProject.getCurrentKey(), symbol);
 
             Refresh();
         }
 
         void PaintCurrenSymbol()
         {
-            var symbol = editorViewProject.getSymbolWindows(editorViewProject.CurrentPage).Where(x => x.Active).FirstOrDefault();
+            var symbol = editorViewProject.getSymbolWindows(editorViewProject.getCurrentKey()).Where(x => x.Active).FirstOrDefault();
             if (symbol != null)
             {
                 CurrentSymbol.Source = symbol.toImage();
@@ -404,7 +404,7 @@ namespace ISRMUL.Control.Editor
 
             if (editorViewProject.CurrentPage == null) return; 
 
-            foreach (Manuscript.SymbolWindow symbol in editorViewProject.getSymbolWindows(editorViewProject.CurrentPage))
+            foreach (Manuscript.SymbolWindow symbol in editorViewProject.getSymbolWindows(editorViewProject.getCurrentKey()))
             {
                 AddRectangle(symbol);
             }

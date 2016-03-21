@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ISRMUL.Recognition.MeanShift
 {
+    [Serializable]
     public class Cluster
     {
         public List<Point> Points { get; set; }
