@@ -15,6 +15,8 @@ namespace ISRMUL.Manuscript
 
         public BitmapSource Image { get { return Project.Images[ImageKey]; } }
 
+        public string Label { get; set; }
+
         string ImageKey {get;set;}
 
         public Canvas Canvas { get { return Project.Canvas; } }

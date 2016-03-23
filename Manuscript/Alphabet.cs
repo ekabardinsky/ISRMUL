@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ISRMUL.Manuscript
 {
-    class Alphabet
+    public class Alphabet
     {
         public SymbolWindow MainSymbol { get { if (Symbols.Count > 0) return Symbols[0]; return null; } }
         public List<SymbolWindow> Symbols { get; set; }
@@ -15,6 +15,10 @@ namespace ISRMUL.Manuscript
         public Alphabet()
         {
             Symbols = new List<SymbolWindow>();
+            Code = string.Empty;
         }
+
+        #region getters
+        #endregion
     }
 }

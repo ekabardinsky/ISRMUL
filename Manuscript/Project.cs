@@ -20,12 +20,17 @@ namespace ISRMUL.Manuscript
         public Canvas Canvas { get; set; }
         Dictionary<string, List<SymbolWindow>> SymbolWindows { get; set; }
         public Dictionary<string, BitmapSource> Images { get; set; }
+        public List<SymbolWindow> RecognitionBase {get;set;}
+        public List<Alphabet> Alphabets { get; set; }
+
         public Project(Canvas Canvas, params IRefreshable [] controls)
         {
             this.Canvas = Canvas;
             Views = new List<IRefreshable>(controls);
             SymbolWindows = new Dictionary<string, List<SymbolWindow>>();
             Images = new Dictionary<string, BitmapSource>();
+            RecognitionBase = new List<SymbolWindow>();
+            Alphabets = new List<Alphabet>();
         }
 
         #region getters
@@ -60,11 +65,22 @@ namespace ISRMUL.Manuscript
         static Project()
         {
             CurrentPageProperty = DependencyProperty.Register("CurrentPage", typeof(BitmapSource), typeof(Project));
+            CurrentAlphabetProperty = DependencyProperty.Register("CurrentAlphabet", typeof(Alphabet), typeof(Project));
+
         }
         public BitmapSource CurrentPage
         {
             get { return (BitmapSource)GetValue(CurrentPageProperty); }
             set { SetValue(CurrentPageProperty, value); }
+        }
+
+        [NonSerialized]
+        public static readonly DependencyProperty CurrentAlphabetProperty;
+
+        public Alphabet CurrentAlphabet
+        {
+            get { return (Alphabet)GetValue(CurrentAlphabetProperty); }
+            set { SetValue(CurrentAlphabetProperty, value); }
         }
         
         #endregion

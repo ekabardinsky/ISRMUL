@@ -5,24 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <Grid x:Name="MainGrid" PreviewMouseDown="Grid_PreviewMouseDown_1" PreviewMouseMove="Grid_PreviewMouseMove_1" MouseLeave="MainGrid_MouseLeave_1">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="8*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
-        </Grid.RowDefinitions> 
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3">
+        <Border x:Name="Borders" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3" BorderThickness="2" CornerRadius="30" BorderBrush="Black" >
             <Border.Background>
-                <ImageBrush ImageSource="images/folder.png"/>
+                <ImageBrush x:Name="BackgroundBrush" ImageSource="/ISRMUL;component/Control/Page/images/error.png"/>
             </Border.Background>
+
         </Border>
-        <Image x:Name="Image" Grid.Column="1" Grid.Row="1"/>
-        <TextBlock x:Name="Text" Grid.Column="1" Grid.Row="3" Text="Error" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Times New Roman" FontSize="25"/>
+        <Image x:Name="Image" Grid.Column="2" Grid.Row="1"/>
+        <TextBlock x:Name="Text" Grid.Column="2" Grid.Row="3" Text="Error" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Times New Roman" FontSize="14"/>
     </Grid>
 </UserControl>

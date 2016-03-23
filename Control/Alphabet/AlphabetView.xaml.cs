@@ -20,9 +20,36 @@ namespace ISRMUL.Control.Alphabet
     /// </summary>
     public partial class AlphabetView : UserControl
     {
-        public AlphabetView()
+        Manuscript.Alphabet alphabet;
+        Manuscript.Project currentProject;
+        AlphabetToolView tool;
+        public AlphabetView(Manuscript.Alphabet alphabet, Manuscript.Project project, AlphabetToolView tool)
         {
+            this.tool = tool;
+            this.alphabet = alphabet;
             InitializeComponent();
+            currentProject = project;
+            if (alphabet.MainSymbol != null)
+                BackgroundBrush.ImageSource = alphabet.MainSymbol.toImage();
+
+            if (currentProject.CurrentAlphabet == alphabet)
+                Borders.BorderBrush = Brushes.BlueViolet;
+        }
+
+        private void Grid_PreviewMouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            currentProject.CurrentAlphabet = alphabet;
+            tool.Refresh();
+        }
+
+        private void Grid_PreviewMouseMove_1(object sender, MouseEventArgs e)
+        {
+            MainGrid.Background = new SolidColorBrush(Color.FromArgb(100,20,200,20));
+        }
+
+        private void MainGrid_MouseLeave_1(object sender, MouseEventArgs e)
+        {
+            MainGrid.Background = null;
         }
     }
 }
