@@ -15,5 +15,83 @@
         <Border Grid.Row="0" BorderThickness="0,0,0,2" BorderBrush="Black">
             <alphabet:AlphabetToolView x:Name="AlphabetTool" alphabetToolViewProject="{Binding ElementName=Editor, Path=alphabetEditorViewProject, Mode=OneWay}"/>
         </Border>
+        <TabControl  Grid.Row="1" Background="Transparent">
+            <TabItem Header="Текущая страница">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Grid.Row="0">
+                        <WrapPanel x:Name="SymbolWrapPanel"/>
+                    </ScrollViewer>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="toCurrentAlphabetButton" Grid.Column="0" Click="toCurrentAlphabetButton_Click_1">
+                            <Image Source="images/toAlphabet.png"/>
+                        </Button> 
+                        <Button x:Name="toBaseButton" Grid.Column="2" Click="toBaseButton_Click_1">
+                            <Image Source="images/toBase.png"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Выбранный алфавит">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Grid.Row="0">
+                        <WrapPanel x:Name="CurrentAlphabetWrapPanel"/>
+                    </ScrollViewer>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="10*"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox x:Name="AlphabetCombo" Grid.Column="0"/>
+                        <Button x:Name="ChangeAlphabetButton" Grid.Column="1" Click="changeAlphabetButton_Click_1">
+                            <Image Source="images/changeAlphabet.png"/>
+                        </Button>
+                        <Button x:Name="removeFromCurrentAlphabetButton" Grid.Column="2" Click="removeFromCurrentAlphabetButton_Click_1">
+                            <Image Source="images/delete.png"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="База знаний">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Grid.Row="0">
+                        <WrapPanel x:Name="KnowledgeBaseWrapPanel"/>
+                    </ScrollViewer>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="createAlphabetButton" Grid.Column="2" Click="createAlphabetButton_Click_1">
+                            <Image Source="images/refresh.png"/>
+                        </Button>
+                        <Button x:Name="deleteSymbolFromBaseButton" Grid.Column="1" Click="deleteSymbolFromBaseButton_Click_1">
+                            <Image Source="images/delete.png"/>
+                        </Button>
+                        <Button x:Name="toCurrentAlphabetButton1" Grid.Column="0" Click="toCurrentAlphabetButton1_Click_1">
+                            <Image Source="images/toAlphabet.png"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        
     </Grid>
 </UserControl>

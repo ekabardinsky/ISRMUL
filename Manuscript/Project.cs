@@ -20,7 +20,7 @@ namespace ISRMUL.Manuscript
         public Canvas Canvas { get; set; }
         Dictionary<string, List<SymbolWindow>> SymbolWindows { get; set; }
         public Dictionary<string, BitmapSource> Images { get; set; }
-        public List<SymbolWindow> RecognitionBase {get;set;}
+        public List<SymbolWindow> KnowledgeBase {get;set;}
         public List<Alphabet> Alphabets { get; set; }
 
         public Project(Canvas Canvas, params IRefreshable [] controls)
@@ -29,7 +29,7 @@ namespace ISRMUL.Manuscript
             Views = new List<IRefreshable>(controls);
             SymbolWindows = new Dictionary<string, List<SymbolWindow>>();
             Images = new Dictionary<string, BitmapSource>();
-            RecognitionBase = new List<SymbolWindow>();
+            KnowledgeBase = new List<SymbolWindow>();
             Alphabets = new List<Alphabet>();
         }
 

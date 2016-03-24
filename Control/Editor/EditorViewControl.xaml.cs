@@ -22,6 +22,7 @@ namespace ISRMUL.Control.Editor
     public partial class EditorViewControl : UserControl, Manuscript.IRefreshable
     {
         Operation currentOperation { get { return Tool.CurrentOperation; } }
+        public Alphabet.AlphabetEditorView alphabetEditor { get; set; }
 
         #region visual tool fields
 
@@ -409,6 +410,8 @@ namespace ISRMUL.Control.Editor
                 AddRectangle(symbol);
             }
             PaintCurrenSymbol();
+
+            alphabetEditor.Refresh();
         }
 
         #endregion

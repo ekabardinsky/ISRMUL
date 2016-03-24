@@ -20,6 +20,8 @@ namespace ISRMUL.Control.Alphabet
     /// </summary>
     public partial class AlphabetToolView : UserControl,Manuscript.IRefreshable
     {
+        static int lastId;
+        public AlphabetEditorView Editor;
         public AlphabetToolView()
         {
             InitializeComponent();
@@ -44,18 +46,31 @@ namespace ISRMUL.Control.Alphabet
         #region event handler
         private void addButton_Click_1(object sender, RoutedEventArgs e)
         {
-            alphabetToolViewProject.Alphabets.Add(new Manuscript.Alphabet());
+            alphabetToolViewProject.Alphabets.Add(new Manuscript.Alphabet() { Code="#"+(lastId++) });
             Refresh();
         }
 
         private void removeButton_Click_1(object sender, RoutedEventArgs e)
         {
-
+            if (alphabetToolViewProject.CurrentAlphabet != null)
+            {
+                alphabetToolViewProject.Alphabets.Remove(alphabetToolViewProject.CurrentAlphabet);
+                Refresh();
+            }
         }
 
         private void unionButton_Click_1(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            TextBox box = sender as TextBox;
+            if (alphabetToolViewProject.CurrentAlphabet != null)
+            {
+                alphabetToolViewProject.CurrentAlphabet.Code = box.Text;
+                AlphabetWrapPanel.Children.Cast<AlphabetView>().Where(x => x.alphabet == alphabetToolViewProject.CurrentAlphabet).First().Text.Text = box.Text;
+            }
         }
         #endregion 
 
@@ -66,16 +81,26 @@ namespace ISRMUL.Control.Alphabet
             AlphabetView view = new AlphabetView(alphabet, alphabetToolViewProject,this);
             view.Width = 100;
             view.Height = 100;
+            view.Text.Text = alphabet.Code;
             AlphabetWrapPanel.Children.Add(view);
         }
 
+        bool flag = false;
         public void Refresh()
         {
+            if (flag)
+                return;
             AlphabetWrapPanel.Children.Clear();
             foreach (var a in alphabetToolViewProject.Alphabets)
                 Add(a);
+
+            flag = true;
+            Editor.Refresh();
+            flag = false;
         }
 
         #endregion
+
+        
     }
 }

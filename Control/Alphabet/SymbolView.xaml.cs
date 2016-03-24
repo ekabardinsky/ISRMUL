@@ -18,34 +18,31 @@ namespace ISRMUL.Control.Alphabet
     /// <summary>
     /// Логика взаимодействия для AlphabetView.xaml
     /// </summary>
-    public partial class AlphabetView : UserControl
+    public partial class SymbolView : UserControl
     {
-        public Manuscript.Alphabet alphabet;
+        public Manuscript.SymbolWindow symbol;
         Manuscript.Project currentProject;
-        AlphabetToolView tool;
-        public AlphabetView(Manuscript.Alphabet alphabet, Manuscript.Project project, AlphabetToolView tool)
+        AlphabetEditorView tool;
+        public SymbolView(Manuscript.SymbolWindow symbol, Manuscript.Project project, AlphabetEditorView tool)
         {
             this.tool = tool;
-            this.alphabet = alphabet;
+            this.symbol = symbol;
             InitializeComponent();
             currentProject = project;
-            if (alphabet.MainSymbol != null)
-                BackgroundBrush.ImageSource = alphabet.MainSymbol.toImage();
+            if (symbol != null)
+                BackgroundBrush.ImageSource = symbol.toImage();
 
-            if (currentProject.CurrentAlphabet == alphabet)
+            if (symbol.Active)
                 Borders.BorderBrush = Brushes.BlueViolet;
-        }
-
-        public void changeText(string label)
-        {
-            
-            alphabet.Code = label;
         }
 
         private void Grid_PreviewMouseDown_1(object sender, MouseButtonEventArgs e)
         {
-            currentProject.CurrentAlphabet = alphabet;
-            tool.Refresh();
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                symbol.Active ^= true;
+                tool.Refresh();
+            }
         }
 
         private void Grid_PreviewMouseMove_1(object sender, MouseEventArgs e)

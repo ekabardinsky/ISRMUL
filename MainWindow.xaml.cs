@@ -27,6 +27,7 @@ namespace ISRMUL
         {
             InitializeComponent();
             ProjectReady = false;
+            Editor.alphabetEditor = AlphabetEditor;
         }
 
         #region event handlers

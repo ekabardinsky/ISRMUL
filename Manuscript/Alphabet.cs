@@ -8,17 +8,24 @@ namespace ISRMUL.Manuscript
 {
     public class Alphabet
     {
-        public SymbolWindow MainSymbol { get { if (Symbols.Count > 0) return Symbols[0]; return null; } }
-        public List<SymbolWindow> Symbols { get; set; }
+        public delegate void TextChangeCallBack(string text);
+        public SymbolWindow MainSymbol { get { return Symbols.FirstOrDefault(); } }
+        public HashSet<SymbolWindow> Symbols { get; set; }
+
         public string Code { get; set; }
 
         public Alphabet()
         {
-            Symbols = new List<SymbolWindow>();
+            Symbols = new HashSet<SymbolWindow>();
             Code = string.Empty;
         }
 
         #region getters
         #endregion
+
+        public override string ToString()
+        {
+            return Code;
+        }
     }
 }

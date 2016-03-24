@@ -19,11 +19,7 @@
             <ScrollViewer Grid.Row="0">
                 <WrapPanel x:Name="AlphabetWrapPanel" />
             </ScrollViewer>
-            <TextBlock Grid.Row="1" Width="200"  HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Text="{Binding ElementName=Tool, Path=alphabetToolViewProject.CurrentAlphabet.Code}">
-                <TextBlock.Background>
-                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
-                </TextBlock.Background>
-            </TextBlock>
+            <TextBox Grid.Row="1" Width="200"  HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Text="{Binding ElementName=Tool, Path=alphabetToolViewProject.CurrentAlphabet.Code, Mode=OneWay}" TextChanged="TextBox_TextChanged_1"/>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -31,9 +27,15 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" x:Name="addButton" Click="addButton_Click_1"/>
-            <Button Grid.Row="1" x:Name="removeButton" Click="removeButton_Click_1"/>
-            <Button Grid.Row="2" x:Name="unionButton" Click="unionButton_Click_1"/>
+            <Button Grid.Row="0" x:Name="addButton" Click="addButton_Click_1">
+                <Image Source="images/folder.png"/>
+            </Button>
+            <Button Grid.Row="1" x:Name="removeButton" Click="removeButton_Click_1">
+                <Image Source="images/delete.png"/>
+            </Button>
+            <Button Grid.Row="2" x:Name="unionButton" Click="unionButton_Click_1">
+                <Image Source="images/union.png"/>
+            </Button>
         </Grid>
     </Grid>
 </UserControl>

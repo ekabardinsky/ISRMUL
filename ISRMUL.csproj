@@ -62,6 +62,9 @@
     <Compile Include="Control\Alphabet\AlphabetView.xaml.cs">
       <DependentUpon>AlphabetView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\Alphabet\SymbolView.xaml.cs">
+      <DependentUpon>SymbolView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Manuscript\Alphabet.cs" />
     <Compile Include="Recongnition\Segmentation\KMeansPlus\Cluster.cs" />
     <Compile Include="Recongnition\Segmentation\KMeansPlus\Evklid.cs" />
@@ -83,6 +86,10 @@
     <Page Include="Control\Alphabet\AlphabetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Alphabet\SymbolView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Control\Editor\EditorViewControl.xaml">
       <SubType>Designer</SubType>
@@ -195,6 +202,20 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Control\Alphabet\images\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Control\Alphabet\images\union.png" />
+    <Resource Include="Control\Alphabet\images\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Control\Alphabet\images\toAlphabet.png" />
+    <Resource Include="Control\Alphabet\images\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Control\Alphabet\images\toBase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Control\Alphabet\images\changeAlphabet.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

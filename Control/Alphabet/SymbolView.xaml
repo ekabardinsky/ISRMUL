@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ISRMUL.Control.Alphabet.AlphabetView"
+﻿<UserControl x:Class="ISRMUL.Control.Alphabet.SymbolView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -22,10 +22,9 @@
         </Grid.ColumnDefinitions>
         <Border x:Name="Borders" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3" BorderThickness="2" CornerRadius="15" BorderBrush="#FF828282" >
             <Border.Background>
-                <ImageBrush x:Name="BackgroundBrush" ImageSource="/ISRMUL;component/Control/Page/images/error.png" Stretch="Uniform"/>
+                <ImageBrush x:Name="BackgroundBrush" ImageSource="/ISRMUL;component/Control/Page/images/error.png" Stretch="Uniform" />
             </Border.Background>
 
         </Border>
-        <TextBlock x:Name="Text" Grid.Column="2" Grid.Row="4" Text="Error" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Times New Roman" FontSize="14"/>
     </Grid>
 </UserControl>
