@@ -56,7 +56,9 @@ namespace ISRMUL.Control.Alphabet
             AlphabetTool.Refresh();
             SymbolWrapPanel.Children.Clear();
 
-            var symbol = alphabetEditorViewProject.getSymbolWindows(alphabetEditorViewProject.getCurrentKey());
+            var key = alphabetEditorViewProject.getCurrentKey();
+            if (key == null) return;
+            var symbol = alphabetEditorViewProject.getSymbolWindows(key);
             foreach (var item in symbol)
                 if (!(alphabetEditorViewProject.Alphabets.Any(x => x.Symbols.Any(y => y == item)) || alphabetEditorViewProject.KnowledgeBase.Any(x => x == item)))
                     Add(item, SymbolWrapPanel);
@@ -76,7 +78,7 @@ namespace ISRMUL.Control.Alphabet
             //comboBox
             AlphabetCombo.Items.Clear();
             foreach (var alpha in alphabetEditorViewProject.Alphabets)
-                AlphabetCombo.Items.Add(alpha);
+                AlphabetCombo.Items.Add(new AlphabetComboBoxItem(alpha));
         }
         #endregion
 
@@ -151,7 +153,7 @@ namespace ISRMUL.Control.Alphabet
         private void changeAlphabetButton_Click_1(object sender, RoutedEventArgs e)
         {
             var symbols = CurrentAlphabetWrapPanel.Children.Cast<SymbolView>().Where(x => x.symbol.Active).Select(x => x.symbol);
-            var alphabet = AlphabetCombo.SelectedItem as Manuscript.Alphabet;
+            var alphabet = (AlphabetCombo.SelectedItem as AlphabetComboBoxItem).alphabet;
 
             if (alphabet == null) return;
             foreach (var s in symbols)

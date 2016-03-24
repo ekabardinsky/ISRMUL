@@ -52,7 +52,7 @@ namespace ISRMUL.Manuscript
 
         public string getCurrentKey()
         {
-           return Images.Where(x => x.Value == CurrentPage).Select(x=>x.Key).First();
+            return Images.Where(x => x.Value == CurrentPage).Select(x => x.Key).FirstOrDefault();
         }
 
         #endregion
@@ -101,7 +101,7 @@ namespace ISRMUL.Manuscript
 
             ISRMUL.Recognition.MeanShift.MeanShiftSolver solver = new Recognition.MeanShift.MeanShiftSolver(new double[] { windowWidth, windowHeight }, points);
             
-            solver.Compute(0.2, 1000);
+            solver.Compute(10, 1000);
             solver.Clustering(3);
 
             var symbols = solver.Clusters.Select(x => new SymbolWindow(key,this, x));
@@ -124,6 +124,8 @@ namespace ISRMUL.Manuscript
             o.Add(p.SymbolWindows);
             o.Add(p.Images.Select(x => x.Key).ToList());
             o.Add(p.getCurrentKey());
+            o.Add(p.KnowledgeBase);
+            o.Add(p.Alphabets);
             // Construct a BinaryFormatter and use it to serialize the data to the stream.
             BinaryFormatter formatter = new BinaryFormatter();
             try
@@ -162,6 +164,8 @@ namespace ISRMUL.Manuscript
                     p.Images.Add(s, Utils.ImageConverter.cutBackground(new BitmapImage(new Uri(s))));
 
                 p.CurrentPage = p.Images[o[2] as string];
+                p.KnowledgeBase = o[3] as List<SymbolWindow>;
+                p.Alphabets = o[4] as List<Alphabet>;
             }
             finally
             {

@@ -53,6 +53,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Control\Alphabet\AlphabetComboBoxItem.xaml.cs">
+      <DependentUpon>AlphabetComboBoxItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Control\Alphabet\AlphabetEditorView.xaml.cs">
       <DependentUpon>AlphabetEditorView.xaml</DependentUpon>
     </Compile>
@@ -75,6 +78,10 @@
     <Compile Include="Recongnition\Segmentation\MeanShift\MeanShiftSolver.cs" />
     <Compile Include="Recongnition\Segmentation\MeanShift\Point.cs" />
     <Compile Include="Utils\ImageConverter.cs" />
+    <Page Include="Control\Alphabet\AlphabetComboBoxItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Control\Alphabet\AlphabetEditorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

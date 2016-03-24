@@ -51,7 +51,7 @@ namespace ISRMUL
 
         void newProject()
         {
-            CurrentProject = new Manuscript.Project(Editor.Canvas, new Manuscript.IRefreshable[] { Pages, Editor });
+            CurrentProject = new Manuscript.Project(Editor.Canvas, new Manuscript.IRefreshable[] { Pages, Editor, AlphabetEditor });
             ProjectReady = true;
             CurrentProject.Refresh();
         }
@@ -72,7 +72,7 @@ namespace ISRMUL
             dialog.Filter = "Project files (*.pro) | *.pro";
             if (dialog.ShowDialog() == true)
             {
-                CurrentProject = Manuscript.Project.DeSerialize(dialog.FileName, Editor.Canvas, new Manuscript.IRefreshable[] { Pages, Editor });
+                CurrentProject = Manuscript.Project.DeSerialize(dialog.FileName, Editor.Canvas, new Manuscript.IRefreshable[] { Pages, Editor, AlphabetEditor });
                 CurrentProject.Refresh();
                 ProjectReady = true;
             }

@@ -39,10 +39,10 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Выбранный алфавит">
+            <TabItem Header="Выбранный символ">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="2*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <ScrollViewer Grid.Row="0">

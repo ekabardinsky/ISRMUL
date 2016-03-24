@@ -103,17 +103,22 @@ namespace ISRMUL.Recognition.MeanShift
         public double Shift()
         {
             double E = 0;
+            double[][] ms = new double[Points.Count][];
+
+            Parallel.For(0, Points.Count, (p) =>
+                {
+                    ms[p] = M(Points[p]); 
+                });
             for (int p = 0; p < Points.Count; p++)
             {
-                double[] temp = M(Points[p]); 
-                E += Distance(temp);
-                Points[p].Value = Add(Points[p].Value, temp);
+                E += Distance(ms[p]);
+                Points[p].Value = Add(Points[p].Value, ms[p]);
             }
             return E;
         }
         public void Compute(double e, int iteration)
         {
-            double E = 1;
+            double E = double.MaxValue;
             for (int t = 0; t < iteration&&E>e; t++)
             {
                 E = Shift();

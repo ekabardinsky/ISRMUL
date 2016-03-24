@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ISRMUL.Manuscript
 {
+    [Serializable]
     public class Alphabet
     {
         public delegate void TextChangeCallBack(string text);

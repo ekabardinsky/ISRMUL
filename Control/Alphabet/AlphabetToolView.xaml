@@ -19,7 +19,13 @@
             <ScrollViewer Grid.Row="0">
                 <WrapPanel x:Name="AlphabetWrapPanel" />
             </ScrollViewer>
-            <TextBox Grid.Row="1" Width="200"  HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Text="{Binding ElementName=Tool, Path=alphabetToolViewProject.CurrentAlphabet.Code, Mode=OneWay}" TextChanged="TextBox_TextChanged_1"/>
+            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,2,0,0">
+                <Grid Margin="25,0" Height="50">
+                    <TextBox  Width="200"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Text="{Binding ElementName=Tool, Path=alphabetToolViewProject.CurrentAlphabet.Code, Mode=OneWay}" TextChanged="TextBox_TextChanged_1" FontSize="14"/>
+                    <TextBlock Text="Код символа" FontSize="14" />
+                </Grid>
+            </Border>
+            
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
