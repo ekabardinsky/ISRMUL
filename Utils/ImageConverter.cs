@@ -120,6 +120,52 @@ namespace ISRMUL.Utils
             return pointToImage(cutted, 0, 0, image.PixelWidth, image.PixelHeight);
         }
 
+        public static BitmapSource UniformResizeImage(BitmapSource bitmapSource, double newWidth, double newHeight)
+        {
+            double dx = newWidth / bitmapSource.PixelWidth;
+            double dy = newHeight / bitmapSource.PixelHeight;
+            if (bitmapSource.PixelWidth < newWidth)
+                dx = 1;
+            if (bitmapSource.PixelHeight < newHeight)
+                dy = 1;
+            var bitmap = new TransformedBitmap(bitmapSource, new ScaleTransform(dx,dy));
+
+
+            return bitmap;
+        }
+
+        public static double[][] bitmapSourceToArray(BitmapSource img)
+        {
+            int startX = 0;
+            int startY = 0;
+            int endX = img.PixelWidth;
+            int endY = img.PixelHeight;
+
+            int stride = img.PixelWidth * 4;
+            int size = img.PixelHeight * stride;
+            byte[] pixels = new byte[size];
+            img.CopyPixels(pixels, stride, 0);
+
+            double[][] data = new double[endY][];
+
+            for (int y = startY; y < endY; y++)
+            {
+                data[y] = new double[endX];
+                for (int x = startX; x < endX; x++)
+                {
+                    int index = y * stride + 4 * x;
+                    byte red = pixels[index];
+                    byte green = pixels[index + 1];
+                    byte blue = pixels[index + 2];
+                    byte alpha = pixels[index + 3];
+
+                    if (alpha!=0)
+                    data[y][x] = (red + green + blue) / 3.0 / 255.0;
+
+                }
+            }
+            return data;
+        }
         //public static BitmapImage resizeImage(BitmapImage img, int maxWidth, int maxHeigh)
         //{
         //    double scaleRatio;

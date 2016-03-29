@@ -25,7 +25,8 @@ namespace ISRMUL.Control.Alphabet
         {
             InitializeComponent();
             alphabet = alpha;
-            Image.Source = alpha.MainSymbol.toImage()??null;
+            if (alpha.MainSymbol != null)
+                Image.Source = alpha.MainSymbol.toImage() ?? null;
             Text.Text = alpha.Code;
         }
     }

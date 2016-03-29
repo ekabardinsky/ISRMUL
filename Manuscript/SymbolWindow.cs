@@ -21,6 +21,8 @@ namespace ISRMUL.Manuscript
 
         public Canvas Canvas { get { return Project.Canvas; } }
 
+        List<ISRMUL.Recognition.MeanShift.Point> cachedPoint { get; set; }
+
         [NonSerialized]
         public Project Project;
 
@@ -119,13 +121,28 @@ namespace ISRMUL.Manuscript
         public BitmapSource toImage()
         {
 
-            List<ISRMUL.Recognition.MeanShift.Point> point;
-            if (redacted || SegmentedPoint==null)
+            List<ISRMUL.Recognition.MeanShift.Point> point=null;
+            if ((redacted || SegmentedPoint==null) && Project.Images.ContainsKey(ImageKey))
                 point = Utils.ImageConverter.getPointFromImage(Image, (int)RealCoordinates.X, (int)RealCoordinates.Y, (int)RealWidth, (int)RealHeight);
-            else
+            else if (Project.Images.ContainsKey(ImageKey))
                 point = SegmentedPoint;
+
+
+            if (point != null)
+                cachedPoint = point;
+            else
+                point = cachedPoint;
+
             return Utils.ImageConverter.pointToImage(point, (int)RealCoordinates.X, (int)RealCoordinates.Y, (int)RealWidth+1, (int)RealHeight+1);
         }
+
+        public double[][] toRetina(int width, int heigth)
+        {
+            var origin = toImage();
+            var scaled = Utils.ImageConverter.UniformResizeImage(origin, width, heigth);
+            return Utils.ImageConverter.bitmapSourceToArray(scaled);
+        }
+
         #endregion
     }
 }

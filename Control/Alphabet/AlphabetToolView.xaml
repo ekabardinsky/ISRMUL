@@ -22,7 +22,7 @@
             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,2,0,0">
                 <Grid Margin="25,0" Height="50">
                     <TextBox  Width="200"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Text="{Binding ElementName=Tool, Path=alphabetToolViewProject.CurrentAlphabet.Code, Mode=OneWay}" TextChanged="TextBox_TextChanged_1" FontSize="14"/>
-                    <TextBlock Text="Код символа" FontSize="14" />
+                    <TextBlock Text="Код символа" FontSize="14" Height="20" VerticalAlignment="Top" />
                 </Grid>
             </Border>
             

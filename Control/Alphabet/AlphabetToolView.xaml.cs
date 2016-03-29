@@ -42,7 +42,6 @@ namespace ISRMUL.Control.Alphabet
         }
         #endregion
 
-
         #region event handler
         private void addButton_Click_1(object sender, RoutedEventArgs e)
         {
