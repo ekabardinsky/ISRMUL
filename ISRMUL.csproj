@@ -69,6 +69,23 @@
       <DependentUpon>SymbolView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Manuscript\Alphabet.cs" />
+    <Compile Include="Recongnition\Neokognitron\AddIfIntermediateTrainer.cs" />
+    <Compile Include="Recongnition\Neokognitron\AddIfRule.cs" />
+    <Compile Include="Recongnition\Neokognitron\C.cs" />
+    <Compile Include="Recongnition\Neokognitron\Clazz.cs" />
+    <Compile Include="Recongnition\Neokognitron\InterploatingTrainer.cs" />
+    <Compile Include="Recongnition\Neokognitron\ITrainer.cs" />
+    <Compile Include="Recongnition\Neokognitron\NeoKognitron.cs" />
+    <Compile Include="Recongnition\Neokognitron\Neuron.cs" />
+    <Compile Include="Recongnition\Neokognitron\Plane.cs" />
+    <Compile Include="Recongnition\Neokognitron\Point.cs" />
+    <Compile Include="Recongnition\Neokognitron\S.cs" />
+    <Compile Include="Recongnition\Neokognitron\Sinaps.cs" />
+    <Compile Include="Recongnition\Neokognitron\SupervisedAddIfRule.cs" />
+    <Compile Include="Recongnition\Neokognitron\U.cs" />
+    <Compile Include="Recongnition\Neokognitron\V.cs" />
+    <Compile Include="Recongnition\Neokognitron\Vector.cs" />
+    <Compile Include="Recongnition\Neokognitron\WTAIntermadiateTrainer.cs" />
     <Compile Include="Recongnition\Segmentation\KMeansPlus\Cluster.cs" />
     <Compile Include="Recongnition\Segmentation\KMeansPlus\Evklid.cs" />
     <Compile Include="Recongnition\Segmentation\KMeansPlus\IDistansion.cs" />
@@ -178,7 +195,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Recongnition\Alphabet\" />
-    <Folder Include="Recongnition\Neokognitron\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Control\Page\images\error.png" />
