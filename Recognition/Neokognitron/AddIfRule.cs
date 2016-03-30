@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISRMUL.Recongnition.Neokognitron
+namespace ISRMUL.Recognition.Neokognitron
 {
     class AddIfRule:Trainer
     {
@@ -45,6 +45,7 @@ namespace ISRMUL.Recongnition.Neokognitron
         protected double maxT = 0;
         protected double maxO = 0;
 
+        [STAThread]
         public override void Train()
         {
             stop = false;

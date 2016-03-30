@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISRMUL.Recongnition.Neokognitron
+namespace ISRMUL.Recognition.Neokognitron
 {
     [Serializable]
-    class U
+    public class U
     {
         public NeoKognitron NeoKognitron { get; set; }
         public List<S> S { get; set; }

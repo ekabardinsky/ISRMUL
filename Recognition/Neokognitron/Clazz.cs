@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISRMUL.Recongnition.Neokognitron
+namespace ISRMUL.Recognition.Neokognitron
 {
     [Serializable]
-    class Clazz
+    public class Clazz
     {
         public List<Vector> ReferenceVectors { get; set; }
         public string Name { get; set; }

@@ -1,0 +1,22 @@
+﻿<Window x:Class="ISRMUL.Windows.AlphabetCreateConsole"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Консоль формирования алфавита" Height="500" Width="600">
+    <Grid Background="#FFE5E5E5"> 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.Column="0" x:Name="ScrollView">
+            <ListBox x:Name="ConsoleBox" Background="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}"/>
+        </ScrollViewer>
+        <StackPanel Grid.Column="1">
+            <Button x:Name="LearningButton" Height="50" Click="LearningButton_Click_1">
+                <Image Source="images/learn.png"/>
+            </Button>
+            <Button x:Name="MakeButton" Height="50">
+                <Image Source="images/make.png"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

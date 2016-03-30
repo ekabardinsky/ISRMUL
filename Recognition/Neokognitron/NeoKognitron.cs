@@ -7,14 +7,14 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISRMUL.Recongnition.Neokognitron
+namespace ISRMUL.Recognition.Neokognitron
 {
     public enum IntermediateLayerTrainRule
     {
         WTA, WKL, AddIf
     }
     [Serializable]
-    class NeoKognitron
+    public class NeoKognitron
     {
         public List<U> U { get; set; }
 
@@ -491,6 +491,7 @@ namespace ISRMUL.Recongnition.Neokognitron
 
             return neo;
         }
+
         static NeoKognitron()
         {
             UgKernelWeight = new double[][]
@@ -552,5 +553,12 @@ namespace ISRMUL.Recongnition.Neokognitron
 
             return percent / trainData.Count;
         }
+    }
+
+    public enum NeokognitronState
+    {
+        Null,
+        FeatureExtractor,
+        Ready
     }
 }

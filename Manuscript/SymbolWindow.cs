@@ -136,11 +136,19 @@ namespace ISRMUL.Manuscript
             return Utils.ImageConverter.pointToImage(point, (int)RealCoordinates.X, (int)RealCoordinates.Y, (int)RealWidth+1, (int)RealHeight+1);
         }
 
-        public double[][] toRetina(int width, int heigth)
+        public double[,] toRetina(int width, int heigth)
         {
             var origin = toImage();
             var scaled = Utils.ImageConverter.UniformResizeImage(origin, width, heigth);
-            return Utils.ImageConverter.bitmapSourceToArray(scaled);
+            var array = Utils.ImageConverter.bitmapSourceToArray(scaled);
+
+            int top = (heigth - array.GetLength(0)) / 2;
+            int left = (width - array.GetLength(1)) / 2;
+
+            if (top != 0 || left != 0)
+                array = Utils.ImageConverter.printToArrayUniform(array, top, left, width, heigth);
+
+            return array;
         }
 
         #endregion

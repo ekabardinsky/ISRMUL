@@ -69,32 +69,36 @@
       <DependentUpon>SymbolView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Manuscript\Alphabet.cs" />
-    <Compile Include="Recongnition\Neokognitron\AddIfIntermediateTrainer.cs" />
-    <Compile Include="Recongnition\Neokognitron\AddIfRule.cs" />
-    <Compile Include="Recongnition\Neokognitron\C.cs" />
-    <Compile Include="Recongnition\Neokognitron\Clazz.cs" />
-    <Compile Include="Recongnition\Neokognitron\InterploatingTrainer.cs" />
-    <Compile Include="Recongnition\Neokognitron\ITrainer.cs" />
-    <Compile Include="Recongnition\Neokognitron\NeoKognitron.cs" />
-    <Compile Include="Recongnition\Neokognitron\Neuron.cs" />
-    <Compile Include="Recongnition\Neokognitron\Plane.cs" />
-    <Compile Include="Recongnition\Neokognitron\Point.cs" />
-    <Compile Include="Recongnition\Neokognitron\S.cs" />
-    <Compile Include="Recongnition\Neokognitron\Sinaps.cs" />
-    <Compile Include="Recongnition\Neokognitron\SupervisedAddIfRule.cs" />
-    <Compile Include="Recongnition\Neokognitron\U.cs" />
-    <Compile Include="Recongnition\Neokognitron\V.cs" />
-    <Compile Include="Recongnition\Neokognitron\Vector.cs" />
-    <Compile Include="Recongnition\Neokognitron\WTAIntermadiateTrainer.cs" />
-    <Compile Include="Recongnition\Segmentation\KMeansPlus\Cluster.cs" />
-    <Compile Include="Recongnition\Segmentation\KMeansPlus\Evklid.cs" />
-    <Compile Include="Recongnition\Segmentation\KMeansPlus\IDistansion.cs" />
-    <Compile Include="Recongnition\Segmentation\KMeansPlus\KMeans.cs" />
-    <Compile Include="Recongnition\Segmentation\KMeansPlus\Vector.cs" />
-    <Compile Include="Recongnition\Segmentation\MeanShift\Cluster.cs" />
-    <Compile Include="Recongnition\Segmentation\MeanShift\MeanShiftSolver.cs" />
-    <Compile Include="Recongnition\Segmentation\MeanShift\Point.cs" />
+    <Compile Include="Recognition\Alphabet\AlphabetMaker.cs" />
+    <Compile Include="Recognition\Neokognitron\AddIfIntermediateTrainer.cs" />
+    <Compile Include="Recognition\Neokognitron\AddIfRule.cs" />
+    <Compile Include="Recognition\Neokognitron\C.cs" />
+    <Compile Include="Recognition\Neokognitron\Clazz.cs" />
+    <Compile Include="Recognition\Neokognitron\InterploatingTrainer.cs" />
+    <Compile Include="Recognition\Neokognitron\ITrainer.cs" />
+    <Compile Include="Recognition\Neokognitron\NeoKognitron.cs" />
+    <Compile Include="Recognition\Neokognitron\Neuron.cs" />
+    <Compile Include="Recognition\Neokognitron\Plane.cs" />
+    <Compile Include="Recognition\Neokognitron\Point.cs" />
+    <Compile Include="Recognition\Neokognitron\S.cs" />
+    <Compile Include="Recognition\Neokognitron\Sinaps.cs" />
+    <Compile Include="Recognition\Neokognitron\SupervisedAddIfRule.cs" />
+    <Compile Include="Recognition\Neokognitron\U.cs" />
+    <Compile Include="Recognition\Neokognitron\V.cs" />
+    <Compile Include="Recognition\Neokognitron\Vector.cs" />
+    <Compile Include="Recognition\Neokognitron\WTAIntermadiateTrainer.cs" />
+    <Compile Include="Recognition\Segmentation\KMeansPlus\Cluster.cs" />
+    <Compile Include="Recognition\Segmentation\KMeansPlus\Evklid.cs" />
+    <Compile Include="Recognition\Segmentation\KMeansPlus\IDistansion.cs" />
+    <Compile Include="Recognition\Segmentation\KMeansPlus\KMeans.cs" />
+    <Compile Include="Recognition\Segmentation\KMeansPlus\Vector.cs" />
+    <Compile Include="Recognition\Segmentation\MeanShift\Cluster.cs" />
+    <Compile Include="Recognition\Segmentation\MeanShift\MeanShiftSolver.cs" />
+    <Compile Include="Recognition\Segmentation\MeanShift\Point.cs" />
     <Compile Include="Utils\ImageConverter.cs" />
+    <Compile Include="Windows\AlphabetCreateConsole.xaml.cs">
+      <DependentUpon>AlphabetCreateConsole.xaml</DependentUpon>
+    </Compile>
     <Page Include="Control\Alphabet\AlphabetComboBoxItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -162,6 +166,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\AlphabetCreateConsole.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Manuscript\IRefreshable.cs" />
@@ -194,7 +202,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Recongnition\Alphabet\" />
+    <Resource Include="Windows\images\make.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Control\Page\images\error.png" />
@@ -239,6 +247,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Control\Alphabet\images\changeAlphabet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Windows\images\learn.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

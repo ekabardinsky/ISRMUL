@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISRMUL.Recongnition.Neokognitron
+namespace ISRMUL.Recognition.Neokognitron
 {
     class WTAIntermadiateTrainer
     {

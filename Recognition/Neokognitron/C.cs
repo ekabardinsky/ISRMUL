@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISRMUL.Recongnition.Neokognitron
+namespace ISRMUL.Recognition.Neokognitron
 {
     [Serializable]
-    class C:Plane
+    public class C : Plane
     {  
         public double q = 0.3; 
     }

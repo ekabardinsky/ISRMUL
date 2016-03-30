@@ -134,7 +134,7 @@ namespace ISRMUL.Utils
             return bitmap;
         }
 
-        public static double[][] bitmapSourceToArray(BitmapSource img)
+        public static double[,] bitmapSourceToArray(BitmapSource img)
         {
             int startX = 0;
             int startY = 0;
@@ -146,11 +146,10 @@ namespace ISRMUL.Utils
             byte[] pixels = new byte[size];
             img.CopyPixels(pixels, stride, 0);
 
-            double[][] data = new double[endY][];
+            double[,] data = new double[endY,endX];
 
             for (int y = startY; y < endY; y++)
-            {
-                data[y] = new double[endX];
+            { 
                 for (int x = startX; x < endX; x++)
                 {
                     int index = y * stride + 4 * x;
@@ -160,33 +159,25 @@ namespace ISRMUL.Utils
                     byte alpha = pixels[index + 3];
 
                     if (alpha!=0)
-                    data[y][x] = (red + green + blue) / 3.0 / 255.0;
+                    data[y,x] = (255 - (red + green + blue) / 3.0 )/ 255.0;
 
                 }
             }
             return data;
         }
-        //public static BitmapImage resizeImage(BitmapImage img, int maxWidth, int maxHeigh)
-        //{
-        //    double scaleRatio;
 
-        //    if (img.PixelWidth > img.PixelHeight)
-        //        scaleRatio = (maxWidth / (double)img.PixelWidth);
-        //    else
-        //        scaleRatio = (maxHeigh / (double)img.PixelHeight);
+        public static double[,] printToArrayUniform(double[,] source, int top, int left, int width, int height)
+        {
+            double[,] result = new double[height, width];
+            for (int i = 0; i < source.GetLength(0); i++)
+            {
+                for (int j = 0; j < source.GetLength(1); j++)
+                {
+                    result[i + top, j + left] = source[i, j];
+                }
+            }
 
-        //    var scaledWidth = img.PixelWidth * scaleRatio;
-        //    var scaledHeight = img.PixelHeight * scaleRatio;
-
-        //    using (var mem = new MemoryStream())
-        //    {
-        //        var wb = new WriteableBitmap(img);
-        //        wb.SaveJpeg(mem, (int)scaledWidth, (int)scaledHeight, 0, 100);
-        //        mem.Seek(0, SeekOrigin.Begin);
-        //        var bn = new BitmapImage();
-        //        bn.SetSource(mem);
-        //        return bn;
-        //    }
-        //}
+            return result;
+        }
     }
 }

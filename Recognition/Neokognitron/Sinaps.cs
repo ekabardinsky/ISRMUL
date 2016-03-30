@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISRMUL.Recongnition.Neokognitron
+namespace ISRMUL.Recognition.Neokognitron
 {
     [Serializable]
-    class Sinaps
+    public class Sinaps
     {
         
         public Neuron Left { get; set; }

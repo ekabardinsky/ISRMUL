@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using ISRMUL.Recognition;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using ISRMUL.Recognition.Neokognitron;
 
 namespace ISRMUL.Manuscript
 {
@@ -22,6 +23,8 @@ namespace ISRMUL.Manuscript
         public Dictionary<string, BitmapSource> Images { get; set; }
         public List<SymbolWindow> KnowledgeBase {get;set;}
         public List<Alphabet> Alphabets { get; set; }
+        public NeoKognitron Neokognitron { get; set; }
+        public NeokognitronState NeoState { get; set; }
 
         public Project(Canvas Canvas, params IRefreshable [] controls)
         {
@@ -31,6 +34,7 @@ namespace ISRMUL.Manuscript
             Images = new Dictionary<string, BitmapSource>();
             KnowledgeBase = new List<SymbolWindow>();
             Alphabets = new List<Alphabet>();
+            NeoState = NeokognitronState.Null;
         }
 
         #region getters

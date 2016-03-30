@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISRMUL.Recongnition.Neokognitron
+namespace ISRMUL.Recognition.Neokognitron
 {
     [Serializable]
-    abstract class Neuron
+    public abstract class Neuron
     {
         [NonSerialized]
         protected int operationId;
@@ -36,7 +36,7 @@ namespace ISRMUL.Recongnition.Neokognitron
         public abstract void clearOperation();
     }
     [Serializable]
-    class CCell : Neuron
+    public class CCell : Neuron
     {
         [NonSerialized]
         public int PreSinapsOperation;
@@ -80,7 +80,7 @@ namespace ISRMUL.Recongnition.Neokognitron
         }
     }
     [Serializable]
-    class SCell : Neuron
+    public class SCell : Neuron
     {
 
         public Sinaps V { get; set; }
@@ -158,7 +158,7 @@ namespace ISRMUL.Recongnition.Neokognitron
             operationId = 0;
         }
     }
-    class SCellV2 : Neuron
+    public class SCellV2 : Neuron
     {
 
         public Sinaps V { get; set; }
@@ -202,7 +202,7 @@ namespace ISRMUL.Recongnition.Neokognitron
         }
     }
     [Serializable]
-    class GradientNeuron : Neuron
+    public class GradientNeuron : Neuron
     {
         double[][] Weight { get; set; }
         public int k { get; set; }
@@ -245,7 +245,7 @@ namespace ISRMUL.Recongnition.Neokognitron
         }
     }
     [Serializable]
-    class Inhibitor : Neuron
+    public class Inhibitor : Neuron
     {
         public Inhibitor()
         {
@@ -269,7 +269,7 @@ namespace ISRMUL.Recongnition.Neokognitron
         }
     }
     [Serializable]
-    class EdgeExtractor : Neuron
+    public class EdgeExtractor : Neuron
     {
         [NonSerialized]
         double PreSinapsCach;
@@ -318,7 +318,7 @@ namespace ISRMUL.Recongnition.Neokognitron
         }
     }
     [Serializable]
-    class SCellInteploating : Neuron
+    public class SCellInteploating : Neuron
     {
         public string Name { get { return (Plane as SInterploating).Clazz.Name; } }
         
