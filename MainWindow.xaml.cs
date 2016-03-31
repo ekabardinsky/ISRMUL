@@ -28,16 +28,42 @@ namespace ISRMUL
             InitializeComponent();
             ProjectReady = false;
             Editor.alphabetEditor = AlphabetEditor;
+
+            registerCommand(ApplicationCommands.New, NewProjectMenuItem_Click);
+            registerCommand(ApplicationCommands.Open, OpenProjectMenuItem_Click);
+            registerCommand(ApplicationCommands.Save, SaveProjectMenuItem_Click);
+            registerCommand(ApplicationCommands.Close, CloseProjectMenuItem_Click_1);
         }
+
+        void registerCommand(ICommand command, ExecutedRoutedEventHandler handler)
+        {
+            CommandBinding binding = new CommandBinding(command);
+            binding.Executed += handler;
+            this.CommandBindings.Add(binding);
+        } 
 
         #region event handlers
 
+        private void CloseProjectMenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (ProjectReady)
+            {
+                var answer = MessageBox.Show("Сохранить проект ?", "Выход", MessageBoxButton.YesNoCancel);
+                if (answer == MessageBoxResult.Cancel) return;
+                else if (answer == MessageBoxResult.No) CloseProject();
+                else saveProject();
+            }
+        }
         private void NewProjectMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            if (ProjectReady)
+                trySave();
             newProject();
         }
         private void OpenProjectMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            if (ProjectReady)
+                trySave();
             openProject();
         }
 
@@ -49,6 +75,13 @@ namespace ISRMUL
 
         #region commands
 
+        void trySave()
+        {
+            if (MessageBox.Show("Есть не сохраненные изменения, сохранить?","Сохранить изменения",MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                saveProject();
+            }
+        }
         void newProject()
         {
             CurrentProject = new Manuscript.Project(Editor.Canvas, new Manuscript.IRefreshable[] { Pages, Editor, AlphabetEditor });
@@ -76,12 +109,17 @@ namespace ISRMUL
                 CurrentProject.Refresh();
                 ProjectReady = true;
             }
+            else
+            {
+                CloseProject();
+            }
         }
 
         void CloseProject()
         {
             ProjectReady = false;
             CurrentProject = null;
+            
         }
 
         #endregion
@@ -115,6 +153,19 @@ namespace ISRMUL
         }
 
         #endregion
+
+        private void MainForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (ProjectReady)
+            {
+                var answer = MessageBox.Show("Сохранить проект ?", "Выход", MessageBoxButton.YesNoCancel);
+                if (answer == MessageBoxResult.Cancel) e.Cancel = true;
+                else if (answer == MessageBoxResult.No) CloseProject();
+                else saveProject();
+            }
+        }
+
+        
 
         
     }

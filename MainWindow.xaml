@@ -6,7 +6,7 @@
         xmlns:editor="clr-namespace:ISRMUL.Control.Editor"
         xmlns:manuscript="clr-namespace:ISRMUL.Manuscript"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        Title="ИС Распознавания исторических манускриптов" MinWidth="1200" x:Name="MainForm">
+        Title="ИС Распознавания исторических манускриптов" MinWidth="1200" x:Name="MainForm" Closing="MainForm_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="{Binding ActualHeight, ElementName=fileItem, Mode=OneWay}" />
@@ -14,17 +14,17 @@
         </Grid.RowDefinitions>
         
         <Menu>
-            <MenuItem Header="Файл" Name="fileItem">
-                <MenuItem Header="Новый проект" Click="NewProjectMenuItem_Click"/>
-                <MenuItem Header="Открыть" Click="OpenProjectMenuItem_Click"/>
-                <MenuItem Header="Сохранить как" IsEnabled="{Binding ProjectReady, ElementName=MainForm, Mode=OneWay}" Click="SaveProjectMenuItem_Click"/>
-                <MenuItem Header="Закрыть" IsEnabled="{Binding ProjectReady, ElementName=MainForm, Mode=OneWay}"/>
+            <MenuItem Header="Файл" Name="fileItem" Height="20">
+                <MenuItem Header="Новый проект" Command="New"/>
+                <MenuItem Header="Открыть" Command="Open"/>
+                <MenuItem Header="Сохранить как" IsEnabled="{Binding ProjectReady, ElementName=MainForm, Mode=OneWay}" Command="Save"/>
+                <MenuItem Header="Закрыть" IsEnabled="{Binding ProjectReady, ElementName=MainForm, Mode=OneWay}" Command="Close"/>
                 <Separator/>
                 <MenuItem Header="Выход"/>               
             </MenuItem>
         </Menu>
-        
-        <TabControl Grid.Row="1">
+
+        <TabControl Grid.Row="1" IsEnabled="{Binding ProjectReady, ElementName=MainForm, Mode=OneWay}">
             <TabItem Header="Документ">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>

@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace ISRMUL.Recognition.KMeansPlus
 {
-    class Evklid:IDistansion
+    class Euclidean2: IDistansion
     {
+
         public double Calculate(Vector one, Vector two)
         {
             double sum = 0;
             for (int i = 0; i < one.Value.Length; i++)
             {
-                sum += (one[i] - two[i]) * (one[i] - two[i]);
+                sum += Math.Pow(one[i] - two[i],2);
             }
 
-            return Math.Sqrt(sum);
+            return sum;
         }
     }
 }

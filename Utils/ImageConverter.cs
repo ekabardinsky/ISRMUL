@@ -101,7 +101,7 @@ namespace ISRMUL.Utils
 
             var originalPoint = new HashSet<ISRMUL.Recognition.MeanShift.Point>(point);
 
-            KMeans means = new KMeans(2, originalPoint.Select(x => new Vector(3,new double[] { x.R, x.G, x.B }) { X=(int)x.Original[0],Y=(int)x.Original[1] }).ToList(), new Evklid());
+            KMeans means = new KMeans(2, originalPoint.Select(x => new Vector(3,new double[] { x.R, x.G, x.B }) { X=(int)x.Original[0],Y=(int)x.Original[1] }).ToList(), new Euclidean());
             means.RGBClustersInitialize();
             means.Proccess(1000);
 

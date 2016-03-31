@@ -148,7 +148,7 @@ namespace ISRMUL.Windows
             for (int i = 0; i < Project.KnowledgeBase.Count; i++)
                 vectors[i].Tag = Project.KnowledgeBase[i];
 
-            ISRMUL.Recognition.KMeansPlus.KMeans means = new Recognition.KMeansPlus.KMeans(classes, vectors, new ISRMUL.Recognition.KMeansPlus.Evklid2());
+            ISRMUL.Recognition.KMeansPlus.KMeans means = new Recognition.KMeansPlus.KMeans(classes, vectors, new ISRMUL.Recognition.KMeansPlus.Euclidean2());
             means.InitializeCentroids();
             means.Proccess(100);
 
