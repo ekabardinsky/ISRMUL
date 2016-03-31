@@ -105,6 +105,7 @@ namespace ISRMUL.Control.Alphabet
         {
             Windows.AlphabetCreateConsole console = new Windows.AlphabetCreateConsole(alphabetEditorViewProject);
             console.ShowDialog();
+            Refresh();
         }
 
         private void toBaseButton_Click_1(object sender, RoutedEventArgs e)

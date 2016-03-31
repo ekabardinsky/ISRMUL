@@ -24,7 +24,6 @@ namespace ISRMUL.Windows
     {
         private Manuscript.Project Project;
 
-        private Recognition.Alphabet.AlphabetMaker AlphabetMaker { get; set; }
 
         private List<string> Logs { get; set; }
 
@@ -35,7 +34,6 @@ namespace ISRMUL.Windows
 
             // TODO: Complete member initialization
             this.Project = alphabetEditorViewProject;
-            this.AlphabetMaker = new Recognition.Alphabet.AlphabetMaker(Project);
             Logs = new List<string>();
             setState();
         }
@@ -65,7 +63,7 @@ namespace ISRMUL.Windows
             {
                 Logs.Add(s1 + " : " + s2);
             });
-            AddIfRule trainer = new AddIfRule(traindData, 2, 2.5, Project.Neokognitron, 0.45, 0.5, NeoKognitron.U1C, NeoKognitron.GenerateMexicanHat(0.7, 3, -25.4, 2.5, 3.5), NeoKognitron.GenerateGaussianKernel(0.7, 1.1, 1), log);
+            AddIfRule trainer = new AddIfRule(traindData, 2, 1.4, Project.Neokognitron, 0.58, 0.1, NeoKognitron.GenerateGaussianKernel(0.7, 2.5, 2), NeoKognitron.GenerateGaussianKernel(0.7, 2.5, 2), NeoKognitron.GenerateMexicanHat(0.8, 2, -1, 1.5, 2.5), log);
             //trainer.Train();
             var timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 200);
@@ -85,7 +83,7 @@ namespace ISRMUL.Windows
             {
                 Logs.Add(s1 + " : " + s2);
             });
-            AddIfRule trainer = new AddIfRule(traindData, 2, 2.5, Project.Neokognitron, 0.45, 0.5, NeoKognitron.U1C, NeoKognitron.GenerateMexicanHat(0.7, 3, -25.4, 2.5, 3.5), NeoKognitron.GenerateGaussianKernel(0.7, 1.1, 1), log);
+            AddIfRule trainer = new AddIfRule(traindData, 3, 1.4, Project.Neokognitron, 0.58, 0.001, NeoKognitron.GenerateGaussianKernel(0.7, 2.5, 2), NeoKognitron.GenerateGaussianKernel(0.7, 2.5, 2), NeoKognitron.GenerateMexicanHat(0.8, 2, -1, 1.5, 2.5), log);
             //trainer.Train();
             var timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
@@ -122,16 +120,54 @@ namespace ISRMUL.Windows
         #region event handler
         private async void LearningButton_Click_1(object sender, RoutedEventArgs e)
         {
-            Project.Neokognitron = new NeoKognitron(31, 31, new int[] { 16 }, new double[] { 0.5, 0.62, 0.45 });
+            Project.Neokognitron = new NeoKognitron(Manuscript.Project.patternWidth, Manuscript.Project.patternHeight, new int[] { 16 }, new double[] { 0.5});
             Project.Neokognitron.init();
 
-            var data = Project.KnowledgeBase.Select(x => x.toRetina(31,31)).ToList();
+            var data = Project.KnowledgeBase.Select(x => x.toRetina(Manuscript.Project.patternWidth, Manuscript.Project.patternHeight)).ToList();
             await learningFirstLevel(data);
             await learningSecondLevel(data);
 
             Project.NeoState = NeokognitronState.FeatureExtractor;
             setState();
         }
+
+        private void MakeButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            int classes;
+            if (!int.TryParse(ClassNumber.Text, out classes))
+            {
+                MessageBox.Show("Не верный формат числа");
+                return;
+            }
+            var vectors = Project.KnowledgeBase
+                .Select(x => x.toRetina(Manuscript.Project.patternWidth, Manuscript.Project.patternHeight))
+                .Select(x => Project.Neokognitron.getFeatures(x))
+                .Select(x=>new ISRMUL.Recognition.KMeansPlus.Vector(x.Length,x))
+                .ToList();
+
+            for (int i = 0; i < Project.KnowledgeBase.Count; i++)
+                vectors[i].Tag = Project.KnowledgeBase[i];
+
+            ISRMUL.Recognition.KMeansPlus.KMeans means = new Recognition.KMeansPlus.KMeans(classes, vectors, new ISRMUL.Recognition.KMeansPlus.Evklid2());
+            means.InitializeCentroids();
+            means.Proccess(100);
+
+
+            Project.Alphabets.Clear();
+            for (int i = 0; i < means.Clusters.Count; i++)
+            {
+                var alphabet = new Manuscript.Alphabet();
+                alphabet.Code = "#"+(i+1);
+                foreach (var symbol in means.Clusters[i].Vectors)
+                    alphabet.Symbols.Add(symbol.Tag as Manuscript.SymbolWindow);
+
+                Project.Alphabets.Add(alphabet);
+            }
+           
+        }
+
         #endregion
+
+        
     }
 }

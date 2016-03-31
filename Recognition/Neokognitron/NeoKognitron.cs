@@ -105,6 +105,26 @@ namespace ISRMUL.Recognition.Neokognitron
 
             return (U[4].S[index] as SInterploating).Clazz.Name;
         }
+        public double[] getFeatures(double[,] bmp)
+        {
+            clearOperation();
+            input(bmp);
+            int dimension = 0;
+            int l = U[3].C.Count * (U[3].C[0].Neurons.Length);
+            double[] data = new double[l];
+            foreach (C c in U[3].C)
+            {
+                for (int y = 0; y < c.Neurons.GetLength(0); y++)
+                {
+                    for (int x = 0; x < c.Neurons.GetLength(1); x++)
+                    {
+                        data[dimension++] = c.Neurons[y, x].getOut(1);
+                    }
+                }
+            }
+
+            return data;
+        }
         void gradLayerInit()
         {
             U.Add(new U());

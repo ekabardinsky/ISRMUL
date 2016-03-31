@@ -17,6 +17,9 @@ namespace ISRMUL.Manuscript
     
     public class Project:DependencyObject
     {
+        public static int patternWidth = 32;
+        public static int patternHeight = 32;
+
         public List<IRefreshable> Views { get; set; }
         public Canvas Canvas { get; set; }
         Dictionary<string, List<SymbolWindow>> SymbolWindows { get; set; }
@@ -130,6 +133,8 @@ namespace ISRMUL.Manuscript
             o.Add(p.getCurrentKey());
             o.Add(p.KnowledgeBase);
             o.Add(p.Alphabets);
+            o.Add(p.Neokognitron);
+            o.Add(p.NeoState);
             // Construct a BinaryFormatter and use it to serialize the data to the stream.
             BinaryFormatter formatter = new BinaryFormatter();
             try
@@ -170,6 +175,8 @@ namespace ISRMUL.Manuscript
                 p.CurrentPage = p.Images[o[2] as string];
                 p.KnowledgeBase = o[3] as List<SymbolWindow>;
                 p.Alphabets = o[4] as List<Alphabet>;
+                p.Neokognitron = o[5] as NeoKognitron;
+                p.NeoState = (NeokognitronState)o[6];
             }
             finally
             {

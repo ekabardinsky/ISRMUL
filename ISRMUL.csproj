@@ -69,7 +69,6 @@
       <DependentUpon>SymbolView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Manuscript\Alphabet.cs" />
-    <Compile Include="Recognition\Alphabet\AlphabetMaker.cs" />
     <Compile Include="Recognition\Neokognitron\AddIfIntermediateTrainer.cs" />
     <Compile Include="Recognition\Neokognitron\AddIfRule.cs" />
     <Compile Include="Recognition\Neokognitron\C.cs" />
@@ -88,7 +87,9 @@
     <Compile Include="Recognition\Neokognitron\Vector.cs" />
     <Compile Include="Recognition\Neokognitron\WTAIntermadiateTrainer.cs" />
     <Compile Include="Recognition\Segmentation\KMeansPlus\Cluster.cs" />
+    <Compile Include="Recognition\Segmentation\KMeansPlus\Cosin.cs" />
     <Compile Include="Recognition\Segmentation\KMeansPlus\Evklid.cs" />
+    <Compile Include="Recognition\Segmentation\KMeansPlus\Evklid2.cs" />
     <Compile Include="Recognition\Segmentation\KMeansPlus\IDistansion.cs" />
     <Compile Include="Recognition\Segmentation\KMeansPlus\KMeans.cs" />
     <Compile Include="Recognition\Segmentation\KMeansPlus\Vector.cs" />
