@@ -163,6 +163,8 @@ namespace ISRMUL.Windows
 
                 Project.Alphabets.Add(alphabet);
             }
+
+            Project.Refresh();
            
         }
 

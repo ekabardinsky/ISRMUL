@@ -11,6 +11,8 @@ using ISRMUL.Recognition;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using ISRMUL.Recognition.Neokognitron;
+using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace ISRMUL.Manuscript
 {
@@ -145,9 +147,10 @@ namespace ISRMUL.Manuscript
             {
                 fs.Close();
             }
+
         }
 
-        public static Project DeSerialize(string filename,Canvas Canvas, params IRefreshable [] controls)
+        public static Project DeSerialize(string filename, Canvas Canvas, params IRefreshable[] controls)
         {
             FileStream fs = new FileStream(filename, FileMode.Open);
             Project p = null;
@@ -172,7 +175,7 @@ namespace ISRMUL.Manuscript
                 foreach (string s in images)
                     p.Images.Add(s, Utils.ImageConverter.cutBackground(new BitmapImage(new Uri(s))));
 
-                p.CurrentPage = p.Images[o[2] as string];
+                p.CurrentPage = o[2] == null ? null : p.Images[o[2] as string];
                 p.KnowledgeBase = o[3] as List<SymbolWindow>;
                 p.Alphabets = o[4] as List<Alphabet>;
                 p.Neokognitron = o[5] as NeoKognitron;
@@ -185,8 +188,42 @@ namespace ISRMUL.Manuscript
 
             return p;
         }
+
+        public static void SerializeKB(string filename, Project p)
+        {
+            FileStream fs = new FileStream(filename, FileMode.Create); 
+            // Construct a BinaryFormatter and use it to serialize the data to the stream.
+            BinaryFormatter formatter = new BinaryFormatter();
+            try
+            {
+                formatter.Serialize(fs, p.KnowledgeBase);
+            }
+            finally
+            {
+                fs.Close();
+            }
+        }
+
+        public static List<SymbolWindow> DeSerializeKB(string filename, Project p)
+        {
+            FileStream fs = new FileStream(filename, FileMode.Open);
+            List<SymbolWindow> o = null;
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter(); 
+                o = (List<SymbolWindow>)formatter.Deserialize(fs);
+                foreach (var s in o)
+                    s.Project = p;
+            }
+            finally
+            {
+                fs.Close();
+            }
+
+            return o;
+        }
+
         #endregion
     }
-
     
 }

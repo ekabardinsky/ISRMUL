@@ -5,15 +5,26 @@
         xmlns:alphabet="clr-namespace:ISRMUL.Control.Alphabet"
         xmlns:editor="clr-namespace:ISRMUL.Control.Editor"
         xmlns:manuscript="clr-namespace:ISRMUL.Manuscript"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+        xmlns:self="clr-namespace:ISRMUL"
         Title="ИС Распознавания исторических манускриптов" MinWidth="1200" x:Name="MainForm" Closing="MainForm_Closing">
+    <Window.CommandBindings>
+        <CommandBinding Command="self:CustomCommands.KBSave" Executed="KBSaveCommand"/>
+        <CommandBinding Command="self:CustomCommands.KBLoad" Executed="KBLoadCommand"/>
+        <CommandBinding Command="self:CustomCommands.KBImport" Executed="KBImportCommand"/>
+        
+        <CommandBinding Command="New" Executed="NewProjectCommand" />
+        <CommandBinding Command="Open" Executed="OpenProjectCommand" />
+        <CommandBinding Command="Save" Executed="SaveProjectCommand" />
+        <CommandBinding Command="Close" Executed="CloseProjectCommand" />
+    </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="{Binding ActualHeight, ElementName=fileItem, Mode=OneWay}" />
             <RowDefinition/>
         </Grid.RowDefinitions>
         
-        <Menu>
+        <Menu> 
             <MenuItem Header="Файл" Name="fileItem" Height="20">
                 <MenuItem Header="Новый проект" Command="New"/>
                 <MenuItem Header="Открыть" Command="Open"/>
@@ -22,6 +33,12 @@
                 <Separator/>
                 <MenuItem Header="Выход"/>               
             </MenuItem>
+            <MenuItem Header="База знаний">
+                <MenuItem Header="Выгрузить" Command="self:CustomCommands.KBSave"/>
+                <MenuItem Header="Загрузить" Command="self:CustomCommands.KBLoad"/>
+                <MenuItem Header="Импорт" Command="self:CustomCommands.KBImport"/>
+            </MenuItem>
+            
         </Menu>
 
         <TabControl Grid.Row="1" IsEnabled="{Binding ProjectReady, ElementName=MainForm, Mode=OneWay}">

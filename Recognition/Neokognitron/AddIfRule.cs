@@ -76,6 +76,7 @@ namespace ISRMUL.Recognition.Neokognitron
                     }
                 }
             }
+
             end:
             neo.U[layer].S.AddRange(newlySPlanes);
             NeoKognitron.CConnectToS(neo.U[layer], DWeight);

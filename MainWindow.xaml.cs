@@ -27,12 +27,7 @@ namespace ISRMUL
         {
             InitializeComponent();
             ProjectReady = false;
-            Editor.alphabetEditor = AlphabetEditor;
-
-            registerCommand(ApplicationCommands.New, NewProjectMenuItem_Click);
-            registerCommand(ApplicationCommands.Open, OpenProjectMenuItem_Click);
-            registerCommand(ApplicationCommands.Save, SaveProjectMenuItem_Click);
-            registerCommand(ApplicationCommands.Close, CloseProjectMenuItem_Click_1);
+            Editor.alphabetEditor = AlphabetEditor; 
         }
 
         void registerCommand(ICommand command, ExecutedRoutedEventHandler handler)
@@ -40,11 +35,12 @@ namespace ISRMUL
             CommandBinding binding = new CommandBinding(command);
             binding.Executed += handler;
             this.CommandBindings.Add(binding);
-        } 
+        }
 
-        #region event handlers
 
-        private void CloseProjectMenuItem_Click_1(object sender, RoutedEventArgs e)
+        #region command handler
+
+        private void CloseProjectCommand(object sender, RoutedEventArgs e)
         {
             if (ProjectReady)
             {
@@ -54,23 +50,67 @@ namespace ISRMUL
                 else saveProject();
             }
         }
-        private void NewProjectMenuItem_Click(object sender, RoutedEventArgs e)
+        private void NewProjectCommand(object sender, RoutedEventArgs e)
         {
             if (ProjectReady)
                 trySave();
             newProject();
         }
-        private void OpenProjectMenuItem_Click(object sender, RoutedEventArgs e)
+        private void OpenProjectCommand(object sender, RoutedEventArgs e)
         {
             if (ProjectReady)
                 trySave();
             openProject();
         }
-
-        private void SaveProjectMenuItem_Click(object sender, RoutedEventArgs e)
+        private void SaveProjectCommand(object sender, RoutedEventArgs e)
         {
             saveProject();
         }
+
+        private void KBSaveCommand(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "Knowledge Base files (*.kb) | *.kb";
+            if (dialog.ShowDialog() == true)
+            {
+                Manuscript.Project.SerializeKB(dialog.FileName, CurrentProject);
+            }
+        }
+        private void KBLoadCommand(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Knowledge Base files (*.kb) | *.kb";
+            if (dialog.ShowDialog() == true)
+            {
+                CurrentProject.KnowledgeBase = Manuscript.Project.DeSerializeKB(dialog.FileName, CurrentProject);
+                CurrentProject.Refresh(); 
+            }
+            
+        }
+        private void KBImportCommand(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Knowledge Base files (*.kb) | *.kb";
+            if (dialog.ShowDialog() == true)
+            {
+                CurrentProject.KnowledgeBase.AddRange(Manuscript.Project.DeSerializeKB(dialog.FileName, CurrentProject));
+                CurrentProject.Refresh();
+            }
+        }
+        #endregion
+
+        #region event handlers
+        private void MainForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (ProjectReady)
+            {
+                var answer = MessageBox.Show("Сохранить проект ?", "Выход", MessageBoxButton.YesNoCancel);
+                if (answer == MessageBoxResult.Cancel) e.Cancel = true;
+                else if (answer == MessageBoxResult.No) CloseProject();
+                else saveProject();
+            }
+        }
+
         #endregion
 
         #region commands
@@ -108,6 +148,7 @@ namespace ISRMUL
                 CurrentProject = Manuscript.Project.DeSerialize(dialog.FileName, Editor.Canvas, new Manuscript.IRefreshable[] { Pages, Editor, AlphabetEditor });
                 CurrentProject.Refresh();
                 ProjectReady = true;
+                
             }
             else
             {
@@ -154,19 +195,18 @@ namespace ISRMUL
 
         #endregion
 
-        private void MainForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (ProjectReady)
-            {
-                var answer = MessageBox.Show("Сохранить проект ?", "Выход", MessageBoxButton.YesNoCancel);
-                if (answer == MessageBoxResult.Cancel) e.Cancel = true;
-                else if (answer == MessageBoxResult.No) CloseProject();
-                else saveProject();
-            }
-        }
+       
 
         
 
         
+    }
+
+    public static class CustomCommands
+    {
+        public static readonly RoutedUICommand KBSave = new RoutedUICommand();
+        public static readonly RoutedUICommand KBLoad = new RoutedUICommand();
+        public static readonly RoutedUICommand KBImport = new RoutedUICommand();
+         
     }
 }

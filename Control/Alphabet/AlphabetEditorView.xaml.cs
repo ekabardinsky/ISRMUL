@@ -104,7 +104,7 @@ namespace ISRMUL.Control.Alphabet
         private void createAlphabetButton_Click_1(object sender, RoutedEventArgs e)
         {
             Windows.AlphabetCreateConsole console = new Windows.AlphabetCreateConsole(alphabetEditorViewProject);
-            console.ShowDialog();
+            console.Show();
             Refresh();
         }
 
@@ -154,6 +154,7 @@ namespace ISRMUL.Control.Alphabet
 
         private void changeAlphabetButton_Click_1(object sender, RoutedEventArgs e)
         {
+            if (AlphabetCombo.SelectedItem == null) return;
             var symbols = CurrentAlphabetWrapPanel.Children.Cast<SymbolView>().Where(x => x.symbol.Active).Select(x => x.symbol);
             var alphabet = (AlphabetCombo.SelectedItem as AlphabetComboBoxItem).alphabet;
 
