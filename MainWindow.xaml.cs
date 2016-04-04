@@ -30,14 +30,6 @@ namespace ISRMUL
             Editor.alphabetEditor = AlphabetEditor; 
         }
 
-        void registerCommand(ICommand command, ExecutedRoutedEventHandler handler)
-        {
-            CommandBinding binding = new CommandBinding(command);
-            binding.Executed += handler;
-            this.CommandBindings.Add(binding);
-        }
-
-
         #region command handler
 
         private void CloseProjectCommand(object sender, RoutedEventArgs e)
@@ -67,6 +59,11 @@ namespace ISRMUL
             saveProject();
         }
 
+        private void InsertCommand(object sender, RoutedEventArgs e)
+        {
+            if (ProjectReady)
+                Pages.Insert_Click(null, null);
+        }
         private void KBSaveCommand(object sender, RoutedEventArgs e)
         {
             SaveFileDialog dialog = new SaveFileDialog();

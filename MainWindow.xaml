@@ -12,6 +12,7 @@
         <CommandBinding Command="self:CustomCommands.KBSave" Executed="KBSaveCommand"/>
         <CommandBinding Command="self:CustomCommands.KBLoad" Executed="KBLoadCommand"/>
         <CommandBinding Command="self:CustomCommands.KBImport" Executed="KBImportCommand"/>
+        <CommandBinding Command="page:CustomPageEditCommands.Insert" Executed="InsertCommand"/>
         
         <CommandBinding Command="New" Executed="NewProjectCommand" />
         <CommandBinding Command="Open" Executed="OpenProjectCommand" />

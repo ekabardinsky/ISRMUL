@@ -71,7 +71,7 @@ namespace ISRMUL.Control.Page
         #endregion
 
         #region event handler
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        public void Insert_Click(object sender, RoutedEventArgs e)
         { 
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Multiselect = true;
@@ -91,7 +91,7 @@ namespace ISRMUL.Control.Page
             }
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Delete_Click(object sender, RoutedEventArgs e)
         {
             int index = Pages.SelectedIndex;
             if (index > -1)
@@ -117,8 +117,12 @@ namespace ISRMUL.Control.Page
         }
 
         #endregion
+    }
 
-   
-         
+    public static class CustomPageEditCommands
+    {
+        public static readonly RoutedUICommand Insert = new RoutedUICommand("Ctrl+I", "Insert", typeof(PageViewControl), new InputGestureCollection(new KeyGesture[] { new KeyGesture(Key.I, ModifierKeys.Control) }));
+        public static readonly RoutedUICommand Delete = new RoutedUICommand("Delete", "Delete", typeof(PageViewControl), new InputGestureCollection(new KeyGesture[] { new KeyGesture(Key.Delete) }));
+
     }
 }

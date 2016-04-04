@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISRMUL.Manuscript;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,17 @@ namespace ISRMUL.Control.Alphabet
             InitializeComponent();
             AlphabetTool.Editor = this;
         }
+        #region command handler
+        private void Select_All_Command(object sender, RoutedEventArgs e)
+        {
+            if (SymbolWrapPanel.IsVisible)
+                SymbolWrapPanel.Children.Cast<SymbolView>().ToList().ForEach(x => x.symbol.Active = true);
+            else if (CurrentAlphabetWrapPanel.IsVisible)
+                CurrentAlphabetWrapPanel.Children.Cast<SymbolView>().ToList().ForEach(x => x.symbol.Active = true);
+            else if (KnowledgeBaseWrapPanel.IsVisible)
+                KnowledgeBaseWrapPanel.Children.Cast<SymbolView>().ToList().ForEach(x => x.symbol.Active = true);
+        }
+        #endregion
 
         #region dependency
         public static readonly DependencyProperty alphabetEditorViewProjectProperty = DependencyProperty.Register("alphabetEditorViewProject", typeof(Manuscript.Project), typeof(AlphabetEditorView));
@@ -185,13 +197,11 @@ namespace ISRMUL.Control.Alphabet
         }
 
         #endregion
+    }
 
-        
-
-       
-
-        
-
+    public static class CustomAlphabetCommands
+    {
+        public static readonly RoutedUICommand SelectAll = new RoutedUICommand("Ctrl+A", "Select All", typeof(AlphabetEditorView), new InputGestureCollection(new KeyGesture[] { new KeyGesture(Key.A, ModifierKeys.Control) }));
 
     }
 }

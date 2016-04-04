@@ -8,7 +8,7 @@ namespace ISRMUL.Recognition.KMeansPlus
 {
     class KMeans
     {
-        public IDistansion DX;
+        public IDistansion Distanse;
         public List<Cluster> Clusters { get; set; }
         public List<Vector> Vectors { get; set; }
         public int VectorSize { get; set; }
@@ -20,14 +20,19 @@ namespace ISRMUL.Recognition.KMeansPlus
             Vectors = data;
             K = k;
             Clusters = new List<Cluster>();
-            this.DX = DX;
+            this.Distanse = DX;
         }
 
         public Vector GetFirsCentr()
         {
             return getCenter(Vectors);
         }
+
         public void InitializeCentroids()
+        {
+            InitializeCentroids(Distanse);
+        }
+        public void InitializeCentroids(IDistansion DX)
         {
             for (int i = 0; i < K; i++)
             {
@@ -61,6 +66,37 @@ namespace ISRMUL.Recognition.KMeansPlus
             }
         }
 
+        public void InitializeAlphabetCentroids(IDistansion DX)
+        {
+            Cluster first = new Cluster() { KMeans = this };
+            first.C = Vectors[r.Next(0, Vectors.Count)];
+            Clusters.Add(first);
+
+            var vectors = Vectors.ToList();
+            vectors.Remove(first.C);
+
+            for (int i = 1; i < K; i++)
+            {
+                
+
+                //get first centroid with biggest sum of disperse at all exists centroids
+                var distanses = vectors.Select(x => new intermediateItems{ v = x, dx = 0.0 });
+                foreach (var d in distanses)
+                {
+                    foreach (var c in Clusters)
+                    {
+                        d.dx += DX.Calculate(d.v, c.C);
+                    }
+                }
+
+                var firstItem = distanses.OrderByDescending(x => x.dx).First();
+
+                //setting values
+                Clusters.Add(new Cluster() { KMeans = this, C = firstItem.v });
+                vectors.Remove(firstItem.v);
+            }
+        }
+
         public void CalculateCentroid()
         {
             for (int i = Clusters.Count - 1; i >= 0; i--)
@@ -83,7 +119,7 @@ namespace ISRMUL.Recognition.KMeansPlus
             {
                 List<double> dist = new List<double>();
                 foreach(Cluster c in Clusters)
-                    dist.Add(DX.Calculate(c.C,v)); 
+                    dist.Add(Distanse.Calculate(c.C,v)); 
 
                 int ind = dist.IndexOf(dist.Min());
                 v.Cluster = Clusters[ind];
@@ -137,24 +173,13 @@ namespace ISRMUL.Recognition.KMeansPlus
             Clusters.Add(new Cluster() { KMeans = this, C = new Vector(3) { Value = new double[] { w , h , i } } });
             Clusters.Add(new Cluster() { KMeans = this, C = new Vector(3) { Value = new double[] { w / 2, h / 2, mo } } });
         }
-        //public void RGBClustersInitialize()
-        //{
-        //    double rMax = Vectors.Max(x => x[0]);
-        //    double gMax = Vectors.Max(x => x[1]);
-        //    double bMax = Vectors.Max(x => x[2]);
-        //    double rMin = Vectors.Min(x => x[0]);
-        //    double gMin = Vectors.Min(x => x[1]);
-        //    double bMin = Vectors.Min(x => x[2]);
-        //    double mr = (rMax - rMin);
-        //    double mg = (gMax - gMin);
-        //    double mb = (bMax - bMin);
-        //    int l =K-2;
-        //    for( int i = 0; i < l;i++)
-        //    {
-        //        Clusters.Add(new Cluster() { KMeans = this, C = new Vector(3) { Value = new double[] { mr / l * i, mg / l * i, mb / l * i } } });
-        //    }
-        //    Clusters.Add(new Cluster() { KMeans = this, C = new Vector(3) { Value = new double[] { rMax , gMax , bMax } } });
-        //    Clusters.Add(new Cluster() { KMeans = this, C = new Vector(3) { Value = new double[] { rMin , gMin , bMin } } });
-        //}
+
+        class intermediateItems
+        {
+            public Vector v { get; set; }
+            public double dx { get; set; }
+        }
     }
+
+
 }

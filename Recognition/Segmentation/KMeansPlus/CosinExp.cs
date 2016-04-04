@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace ISRMUL.Recognition.KMeansPlus
 {
-    class Cosin:IDistansion
+    class CosinExp:IDistansion
     {
         public double Calculate(Vector one, Vector two)
         {
             double cosin = (one * two) / (one.Module() * two.Module());
-            return cosin;
+            double degree = 1 / cosin;
+            return Math.Exp(degree);
         }
     }
 }

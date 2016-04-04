@@ -4,8 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:page="clr-namespace:ISRMUL.Control.Page"
+             xmlns:self="clr-namespace:ISRMUL.Control.Page"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.CommandBindings>
+        <CommandBinding Command="self:CustomPageEditCommands.Insert" Executed="Insert_Click"/>
+        <CommandBinding Command="self:CustomPageEditCommands.Delete" Executed="Delete_Click"/>
+    </UserControl.CommandBindings>
     <Grid>
         <Grid.Background>
             <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveBorderColorKey}}"/>
@@ -25,10 +30,10 @@
                 </ListBox>
             </ScrollViewer>
         </Border>
-        <Button Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" BorderThickness="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_Click_2">
+        <Button Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" BorderThickness="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Delete_Click">
             <Image Source="images/delete.png"/>
         </Button>
-        <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" BorderThickness="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_Click_1">
+        <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" BorderThickness="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Insert_Click">
             <Image Source="images/add.png"/>
         </Button>
     </Grid>
