@@ -35,6 +35,8 @@ namespace ISRMUL.Control.Alphabet
                 CurrentAlphabetWrapPanel.Children.Cast<SymbolView>().ToList().ForEach(x => x.symbol.Active = true);
             else if (KnowledgeBaseWrapPanel.IsVisible)
                 KnowledgeBaseWrapPanel.Children.Cast<SymbolView>().ToList().ForEach(x => x.symbol.Active = true);
+
+            Refresh();
         }
         #endregion
 

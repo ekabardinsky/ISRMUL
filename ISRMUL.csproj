@@ -70,6 +70,9 @@
     <Compile Include="Control\Alphabet\SymbolView.xaml.cs">
       <DependentUpon>SymbolView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\Learn\LearnView.xaml.cs">
+      <DependentUpon>LearnView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Manuscript\Alphabet.cs" />
     <Compile Include="Recognition\Neokognitron\AddIfIntermediateTrainer.cs" />
     <Compile Include="Recognition\Neokognitron\AddIfRule.cs" />
@@ -132,6 +135,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Control\Editor\WindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Learn\LearnView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
