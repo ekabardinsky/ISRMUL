@@ -111,7 +111,7 @@ namespace ISRMUL.Manuscript
             ISRMUL.Recognition.MeanShift.MeanShiftSolver solver = new Recognition.MeanShift.MeanShiftSolver(new double[] { windowWidth, windowHeight }, points);
             
             solver.Compute(10, 1000);
-            solver.Clustering(3);
+            solver.Clustering(Math.Max(windowHeight,windowWidth));
 
             var symbols = solver.Clusters.Select(x => new SymbolWindow(key,this, x));
             var original = getSymbolWindows(key);

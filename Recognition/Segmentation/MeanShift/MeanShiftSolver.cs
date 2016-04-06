@@ -42,7 +42,7 @@ namespace ISRMUL.Recognition.MeanShift
                 double g = G(p, i);
                 if (g != 0)
                 {
-                    res = Add(res, ConstMultiply(Points[i].Value, g));
+                    res = Add(res, Points[i].Value);
                     gi += g;
                 }
             }
@@ -57,6 +57,10 @@ namespace ISRMUL.Recognition.MeanShift
         }
         double[] ConstMultiply(double[] p1, double c)
         {
+            if (c != 1)
+            {
+                return p1;
+            }
             return p1.Select(x => x * c).ToArray();
         }
         double[] ConstDivision(double[] p1, double c)
@@ -88,7 +92,7 @@ namespace ISRMUL.Recognition.MeanShift
         bool IsLowest(double[] p1)
         {
             bool b = true;
-            for (int i = 0; i < H.Length; i++)
+            for (int i = 0; i < H.Length && b; i++)
             {
                 b &= H[i] >= p1[i];
             }
