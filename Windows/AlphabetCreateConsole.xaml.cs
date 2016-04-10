@@ -28,7 +28,7 @@ namespace ISRMUL.Windows
         private List<string> Logs { get; set; }
 
          
-        public AlphabetCreateConsole(Manuscript.Project alphabetEditorViewProject)
+        public AlphabetCreateConsole(Manuscript.Project alphabetEditorViewProject, bool isSegmentation)
         {
             InitializeComponent();
 
@@ -36,6 +36,8 @@ namespace ISRMUL.Windows
             this.Project = alphabetEditorViewProject;
             Logs = new List<string>();
             setState();
+            LearnInterploatingButton.Visibility = isSegmentation ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+            MakeButton.Visibility = !isSegmentation ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
         }
 
 
@@ -46,13 +48,18 @@ namespace ISRMUL.Windows
             if (Project.NeoState == Recognition.Neokognitron.NeokognitronState.Null)
             {
                 LearningButton.IsEnabled = true;
+                LearnInterploatingButton.IsEnabled = false;
                 MakeButton.IsEnabled = false;
             }
             else
             {
                 LearningButton.IsEnabled = true;
+                LearnInterploatingButton.IsEnabled = true;
                 MakeButton.IsEnabled = true;
             }
+
+            if (Project.Alphabets.Count == 0)
+                LearnInterploatingButton.IsEnabled = false;
         }
 
         Task learningFirstLevel(List<double[,]> traindData)
@@ -95,6 +102,28 @@ namespace ISRMUL.Windows
                 timer.Stop();
             });
         }
+        Task learningInterploatingLevel(List<double[,]> traindData, List<string> labels)
+        {
+            ConsoleBox.Items.Clear();
+
+            Logger log = new Logger((s1, s2) =>
+            {
+                Logs.Add(s1 + " : " + s2);
+            });
+
+            InterploatingTrainer trainer = new InterploatingTrainer(Project.Neokognitron, traindData, labels, 4, log);
+
+            var timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            timer.Tick += (a, b) => { printLastLog(); };
+            timer.Start();
+            return Task.Run(() =>
+            {
+                trainer.Train();
+                timer.Stop();
+            });
+        }
+
 
         void printLastLog()
         {
@@ -128,6 +157,17 @@ namespace ISRMUL.Windows
             await learningSecondLevel(data);
 
             Project.NeoState = NeokognitronState.FeatureExtractor;
+            setState();
+        }
+
+        private async void LearnInterploatingButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            var labels = Project.KnowledgeBase.Select(x => x.getLabelFromAlphabet()).ToList();
+            var data = Project.KnowledgeBase.Select(x => x.toRetina(Manuscript.Project.patternWidth, Manuscript.Project.patternHeight)).ToList();
+
+            await learningInterploatingLevel(data, labels);
+
+            Project.NeoState = NeokognitronState.Ready;
             setState();
         }
 
@@ -169,6 +209,8 @@ namespace ISRMUL.Windows
         }
 
         #endregion
+
+        
 
         
     }

@@ -117,7 +117,7 @@ namespace ISRMUL.Control.Alphabet
 
         private void createAlphabetButton_Click_1(object sender, RoutedEventArgs e)
         {
-            Windows.AlphabetCreateConsole console = new Windows.AlphabetCreateConsole(alphabetEditorViewProject);
+            Windows.AlphabetCreateConsole console = new Windows.AlphabetCreateConsole(alphabetEditorViewProject,true);
             console.Show();
             Refresh();
         }

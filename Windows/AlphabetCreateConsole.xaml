@@ -27,6 +27,9 @@
                     <Image Source="images/make.png" Grid.Row="2"/> 
                 </Grid>
             </Button>
+            <Button x:Name="LearnInterploatingButton" Height="180" Click="LearnInterploatingButton_Click_1">
+                <Image Source="images/learn.png"/>
+            </Button>
         </StackPanel>
     </Grid>
 </Window>
