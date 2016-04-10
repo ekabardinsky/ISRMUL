@@ -18,9 +18,9 @@ using System.Windows.Threading;
 namespace ISRMUL.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для AlphabetCreateConsole.xaml
+    /// Логика взаимодействия для LearnConsole.xaml
     /// </summary>
-    public partial class AlphabetCreateConsole : Window
+    public partial class LearnConsole : Window
     {
         private Manuscript.Project Project;
 
@@ -28,7 +28,7 @@ namespace ISRMUL.Windows
         private List<string> Logs { get; set; }
 
          
-        public AlphabetCreateConsole(Manuscript.Project alphabetEditorViewProject, bool isSegmentation)
+        public LearnConsole(Manuscript.Project alphabetEditorViewProject, bool isSegmentation)
         {
             InitializeComponent();
 
@@ -38,6 +38,8 @@ namespace ISRMUL.Windows
             setState();
             LearnInterploatingButton.Visibility = isSegmentation ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
             MakeButton.Visibility = !isSegmentation ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+            LearningButton.Visibility = !isSegmentation && Project.NeoState == NeokognitronState.FeatureExtractor ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+            Title = isSegmentation ? "Консоль формирования алфавита" : "Консоль обучения";
         }
 
 

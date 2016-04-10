@@ -49,13 +49,13 @@ namespace ISRMUL.Control.Text
             if (textProject.NeoState == Recognition.Neokognitron.NeokognitronState.Null)
             {
                 MessageBox.Show("Для распознавания необходимо построить модуль \"Неокогнитрон\"");
-                Windows.AlphabetCreateConsole console = new Windows.AlphabetCreateConsole(textProject, true);
+                Windows.LearnConsole console = new Windows.LearnConsole(textProject, true);
                 console.Show();
             }
             if (textProject.NeoState == Recognition.Neokognitron.NeokognitronState.FeatureExtractor)
             {
                 MessageBox.Show("Для распознавания необходимо обучить модуль \"Неокогнитрон\"");
-                Windows.AlphabetCreateConsole console = new Windows.AlphabetCreateConsole(textProject, false);
+                Windows.LearnConsole console = new Windows.LearnConsole(textProject, false);
                 console.Show();
             }
             if (textProject.NeoState == Recognition.Neokognitron.NeokognitronState.Ready)

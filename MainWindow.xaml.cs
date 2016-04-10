@@ -97,13 +97,13 @@ namespace ISRMUL
 
         private void LearnCommand(object sender, RoutedEventArgs e)
         {
-            Windows.AlphabetCreateConsole console = new Windows.AlphabetCreateConsole(CurrentProject, false);
+            Windows.LearnConsole console = new Windows.LearnConsole(CurrentProject, false);
             console.Show();
             CurrentProject.Refresh();
         }
         private void CreateAlphabetCommand(object sender, RoutedEventArgs e)
         {
-            Windows.AlphabetCreateConsole console = new Windows.AlphabetCreateConsole(CurrentProject, true);
+            Windows.LearnConsole console = new Windows.LearnConsole(CurrentProject, true);
             console.Show();
             CurrentProject.Refresh();
         }
