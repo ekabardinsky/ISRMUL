@@ -152,5 +152,23 @@ namespace ISRMUL.Manuscript
         }
 
         #endregion
+
+        public string getLabelFromAlphabet()
+        {
+            var alpha = Project.Alphabets;
+            var item = alpha.FirstOrDefault(x => x.Symbols.Contains(this));
+            return item == null ? null : item.Code; 
+        }
+
+        public string recognize()
+        {
+            string label = getLabelFromAlphabet();
+            if (label == null)
+            {
+                label = Project.Neokognitron.Compute(toRetina(Manuscript.Project.patternWidth, Manuscript.Project.patternHeight));
+            }
+
+            return label;
+        }
     }
 }

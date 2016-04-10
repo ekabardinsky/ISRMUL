@@ -70,9 +70,13 @@
     <Compile Include="Control\Alphabet\SymbolView.xaml.cs">
       <DependentUpon>SymbolView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Control\Learn\LearnView.xaml.cs">
-      <DependentUpon>LearnView.xaml</DependentUpon>
+    <Compile Include="Control\Text\SymbolView.xaml.cs">
+      <DependentUpon>SymbolView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\Text\TextEditor.xaml.cs">
+      <DependentUpon>TextEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Text\TextFormatter.cs" />
     <Compile Include="Manuscript\Alphabet.cs" />
     <Compile Include="Recognition\Neokognitron\AddIfIntermediateTrainer.cs" />
     <Compile Include="Recognition\Neokognitron\AddIfRule.cs" />
@@ -138,15 +142,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Control\Learn\LearnView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Control\Page\PageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Control\Page\PageViewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Text\SymbolView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Text\TextEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -262,6 +270,7 @@
   <ItemGroup>
     <Resource Include="Windows\images\learn.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
