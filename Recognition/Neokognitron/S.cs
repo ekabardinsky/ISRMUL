@@ -15,5 +15,10 @@ namespace ISRMUL.Recognition.Neokognitron
     public class SInterploating : S
     {
         public Clazz Clazz {get;set;}
+
+        public override string ToString()
+        {
+            return Clazz == null ? base.ToString() : Clazz.Name;
+        }
     }
 }

@@ -107,8 +107,11 @@
     <Compile Include="Recognition\Segmentation\MeanShift\MeanShiftSolver.cs" />
     <Compile Include="Recognition\Segmentation\MeanShift\Point.cs" />
     <Compile Include="Utils\ImageConverter.cs" />
-    <Compile Include="Windows\AlphabetCreateConsole.xaml.cs">
-      <DependentUpon>AlphabetCreateConsole.xaml</DependentUpon>
+    <Compile Include="Windows\LearnConsole.xaml.cs">
+      <DependentUpon>LearnConsole.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ToKnowledgeBaseConsole.xaml.cs">
+      <DependentUpon>ToKnowledgeBaseConsole.xaml</DependentUpon>
     </Compile>
     <Page Include="Control\Alphabet\AlphabetComboBoxItem.xaml">
       <SubType>Designer</SubType>
@@ -185,7 +188,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Windows\AlphabetCreateConsole.xaml">
+    <Page Include="Windows\LearnConsole.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ToKnowledgeBaseConsole.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

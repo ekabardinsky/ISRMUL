@@ -1,0 +1,33 @@
+﻿<Window x:Class="ISRMUL.Windows.ToKnowledgeBaseConsole"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:textEditor="clr-namespace:ISRMUL.Control.Text"
+        Title="Консоль исправления" Height="400" Width="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <textEditor:SymbolView x:Name="MainSymbol" Grid.Row="0"/>
+            <ComboBox x:Name="MainComboBox" Grid.Row="1" FontSize="25"/>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.Background>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.MenuBarColorKey}}"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="LearnButton" Click="LearnButton_Click_1"  Grid.Row="0">
+                <Image Source="/ISRMUL;component/Control/Alphabet/images/refresh.png"/>
+            </Button>
+            
+        </Grid>
+    </Grid>
+</Window>

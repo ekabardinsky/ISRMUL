@@ -579,6 +579,7 @@ namespace ISRMUL.Recognition.Neokognitron
     {
         Null,
         FeatureExtractor,
-        Ready
+        Ready,
+        NonActual
     }
 }

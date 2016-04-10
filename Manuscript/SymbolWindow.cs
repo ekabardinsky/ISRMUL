@@ -23,6 +23,8 @@ namespace ISRMUL.Manuscript
 
         List<ISRMUL.Recognition.MeanShift.Point> cachedPoint { get; set; }
 
+        public string cachedCode { get; set; }
+
         [NonSerialized]
         public Project Project;
 
@@ -153,6 +155,7 @@ namespace ISRMUL.Manuscript
 
         #endregion
 
+        #region get labels
         public string getLabelFromAlphabet()
         {
             var alpha = Project.Alphabets;
@@ -170,5 +173,13 @@ namespace ISRMUL.Manuscript
 
             return label;
         }
+
+        public string getLabel()
+        {
+            var label = getLabelFromAlphabet();
+
+            return label == null ? cachedCode : label;
+        }
+        #endregion
     }
 }

@@ -15,7 +15,9 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <WrapPanel x:Name="TextWrapPanel" Grid.Row="0" Background="#FFFFFCFC"/>
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel x:Name="TextWrapPanel" Grid.Row="0" Background="#FFFFFCFC"/>
+            </ScrollViewer>
             <TextBox x:Name="RecognizedText" Grid.Row="1" FontSize="22"/>
         </Grid>
 

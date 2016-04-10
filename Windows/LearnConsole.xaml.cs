@@ -113,6 +113,9 @@ namespace ISRMUL.Windows
                 Logs.Add(s1 + " : " + s2);
             });
 
+            if (Project.Neokognitron.U.Count > 4)
+                Project.Neokognitron.U.RemoveAt(4);
+
             InterploatingTrainer trainer = new InterploatingTrainer(Project.Neokognitron, traindData, labels, 4, log);
 
             var timer = new DispatcherTimer();
@@ -164,7 +167,7 @@ namespace ISRMUL.Windows
 
         private async void LearnInterploatingButton_Click_1(object sender, RoutedEventArgs e)
         {
-            var labels = Project.KnowledgeBase.Select(x => x.getLabelFromAlphabet()).ToList();
+            var labels = Project.KnowledgeBase.Select(x => x.getLabel()).ToList();
             var data = Project.KnowledgeBase.Select(x => x.toRetina(Manuscript.Project.patternWidth, Manuscript.Project.patternHeight)).ToList();
 
             await learningInterploatingLevel(data, labels);

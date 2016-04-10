@@ -41,7 +41,6 @@ namespace ISRMUL.Control.Text
         }
         #endregion
 
-
         #region event handlers
 
         private void RecognizeButton_Click_1(object sender, RoutedEventArgs e)
@@ -58,6 +57,18 @@ namespace ISRMUL.Control.Text
                 Windows.LearnConsole console = new Windows.LearnConsole(textProject, false);
                 console.Show();
             }
+            if (textProject.NeoState == Recognition.Neokognitron.NeokognitronState.NonActual)
+            {
+                if (MessageBox.Show("Модуль распознавания использует не актуальные знания. Переобучить ?", "Переобучение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    Windows.LearnConsole console = new Windows.LearnConsole(textProject, false);
+                    console.Show();
+                }
+                else
+                {
+                    recognize();
+                }
+            }
             if (textProject.NeoState == Recognition.Neokognitron.NeokognitronState.Ready)
             {
                 recognize();
@@ -70,7 +81,7 @@ namespace ISRMUL.Control.Text
 
         void add(Manuscript.SymbolWindow symbol, string label)
         {
-            SymbolView view = new SymbolView(symbol.toImage(), label);
+            SymbolView view = new SymbolView(symbol.toImage(), label, symbol, textProject);
 
             view.Height = 100;
             view.Width = 100;

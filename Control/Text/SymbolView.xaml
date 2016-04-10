@@ -5,7 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <Grid PreviewMouseMove="Grid_PreviewMouseMove_1" MouseLeave="Grid_MouseLeave_1" x:Name="MainGrid">
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Быстрое исправление" Click="MenuItem_Click_1"/>
+                <MenuItem Header="Исправить и переобучить" Click="MenuItem_Click_2"/>
+            </ContextMenu>
+        </Grid.ContextMenu>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="4*"/>
