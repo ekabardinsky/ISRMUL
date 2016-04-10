@@ -79,6 +79,7 @@ namespace ISRMUL.Windows
             
             Windows.LearnConsole console = new LearnConsole(current, false);
             console.ShowDialog();
+            this.Close();
         }
 
         private void LearnButton_Click_1(object sender, RoutedEventArgs e)
