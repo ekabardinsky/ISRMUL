@@ -65,7 +65,7 @@ namespace ISRMUL.Control.Alphabet
         private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
         {
             TextBox box = sender as TextBox;
-            if (alphabetToolViewProject.CurrentAlphabet != null)
+            if (alphabetToolViewProject != null && alphabetToolViewProject.CurrentAlphabet != null)
             {
                 alphabetToolViewProject.CurrentAlphabet.Code = box.Text;
                 AlphabetWrapPanel.Children.Cast<AlphabetView>().Where(x => x.alphabet == alphabetToolViewProject.CurrentAlphabet).First().Text.Text = box.Text;
