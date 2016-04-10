@@ -94,6 +94,21 @@ namespace ISRMUL
                 CurrentProject.Refresh();
             }
         }
+
+        private void LearnCommand(object sender, RoutedEventArgs e)
+        {
+            Windows.AlphabetCreateConsole console = new Windows.AlphabetCreateConsole(CurrentProject, false);
+            console.Show();
+            CurrentProject.Refresh();
+        }
+        private void CreateAlphabetCommand(object sender, RoutedEventArgs e)
+        {
+            Windows.AlphabetCreateConsole console = new Windows.AlphabetCreateConsole(CurrentProject, true);
+            console.Show();
+            CurrentProject.Refresh();
+        }
+
+
         #endregion
 
         #region event handlers
@@ -204,6 +219,9 @@ namespace ISRMUL
         public static readonly RoutedUICommand KBSave = new RoutedUICommand();
         public static readonly RoutedUICommand KBLoad = new RoutedUICommand();
         public static readonly RoutedUICommand KBImport = new RoutedUICommand();
+
+        public static readonly RoutedUICommand CreateAlphabet = new RoutedUICommand();
+        public static readonly RoutedUICommand Learn = new RoutedUICommand();
          
     }
 }
