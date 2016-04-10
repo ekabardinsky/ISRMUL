@@ -29,7 +29,8 @@ namespace ISRMUL.Recognition.Neokognitron
         public double Compute(Vector pattern)
         {
             double maxS = 0;
-
+            if (ReferenceVectors.Count == 1)
+                return badCompute(pattern);
             for (int i = 0; i < ReferenceVectors.Count-1; i++)
             {
                 for (int j = i + 1; j < ReferenceVectors.Count; j++)
@@ -44,6 +45,12 @@ namespace ISRMUL.Recognition.Neokognitron
 
             return maxS;
         }
+
+        public double badCompute(Vector pattern)
+        {
+            return getSimilary(pattern, ReferenceVectors[0]);
+        }
+
         double getSimilary(Vector one, Vector two)
         {
             return (one * two) / (one.Module() * two.Module());
