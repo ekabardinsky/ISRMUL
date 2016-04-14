@@ -25,9 +25,6 @@
                 </Grid.RowDefinitions>
                 <ScrollViewer  Grid.Row="0" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                     <Canvas Name="Canvas"  Height="{Binding ElementName=BackgroundBrush, Path=ImageSource.Height, Mode=OneWay}" Width="{Binding ElementName=BackgroundBrush, Path=ImageSource.Width, Mode=OneWay}">
-                        <Canvas.Effect>
-                            <DropShadowEffect/>
-                        </Canvas.Effect>
                         <Canvas.Background>
                             <ImageBrush x:Name="BackgroundBrush" ImageSource="{Binding editorViewProject.CurrentPage, ElementName=Editor, Mode=OneWay}"/>
                         </Canvas.Background> 

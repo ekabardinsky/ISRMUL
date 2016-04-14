@@ -159,7 +159,13 @@ namespace ISRMUL.Control.Editor
         {
             if (editorViewProject.CurrentPage == null) return;
             var project = editorViewProject;
-            project.SegmentationCurrent(ySlider.Value, xSlider.Value, project.getCurrentKey(), 100);
+            Task task = project.SegmentationCurrent(ySlider.Value, xSlider.Value, project.getCurrentKey(), 100, (x) =>
+            {
+                Windows.TaskBuffer.Buffer = x;
+            });
+
+            Windows.TaskInvokeForm invoker = new Windows.TaskInvokeForm(task);
+            invoker.ShowDialog();
             Refresh();
         }
 

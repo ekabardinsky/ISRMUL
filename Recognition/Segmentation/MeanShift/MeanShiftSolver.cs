@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace ISRMUL.Recognition.MeanShift
 { 
+    public delegate void MeanLogger(double percent);
+
     public class MeanShiftSolver
     {
         public double[] H { get; set; }
         public List<Point> Points { get; set; }
-
         public List<Cluster> Clusters { get; set; }
+
+        public MeanLogger logger { get; set; }
 
         public MeanShiftSolver(double[] h, List<Point> points)
         {
@@ -123,9 +126,16 @@ namespace ISRMUL.Recognition.MeanShift
         public void Compute(double e, int iteration)
         {
             double E = double.MaxValue;
+            double Emax = 0;
             for (int t = 0; t < iteration&&E>e; t++)
             {
                 E = Shift();
+                if (E > Emax)
+                    Emax = E;
+                if (logger != null)
+                {
+                    logger((1 - E / Emax)*100);
+                }
             }
         }
 

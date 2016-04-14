@@ -110,6 +110,9 @@
     <Compile Include="Windows\LearnConsole.xaml.cs">
       <DependentUpon>LearnConsole.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\TaskInvokeForm.xaml.cs">
+      <DependentUpon>TaskInvokeForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ToKnowledgeBaseConsole.xaml.cs">
       <DependentUpon>ToKnowledgeBaseConsole.xaml</DependentUpon>
     </Compile>
@@ -189,6 +192,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\LearnConsole.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TaskInvokeForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -29,7 +29,7 @@ namespace ISRMUL.Manuscript
         public List<SymbolWindow> KnowledgeBase {get;set;}
         public List<Alphabet> Alphabets { get; set; }
         public NeoKognitron Neokognitron { get; set; }
-        public NeokognitronState NeoState { get; set; }
+        public NeokognitronState NeoState { get; set; } 
 
         public Project(Canvas Canvas, params IRefreshable [] controls)
         {
@@ -104,19 +104,25 @@ namespace ISRMUL.Manuscript
 
         #region segmentation
 
-        public void SegmentationCurrent(double windowHeight, double windowWidth, string key, int backThresh)
+        public Task SegmentationCurrent(double windowHeight, double windowWidth, string key, int backThresh, ISRMUL.Recognition.MeanShift.MeanLogger log)
         {
             var points = Utils.ImageConverter.getPointFromImage(CurrentPage);
 
-            ISRMUL.Recognition.MeanShift.MeanShiftSolver solver = new Recognition.MeanShift.MeanShiftSolver(new double[] { windowWidth, windowHeight }, points);
-            
-            solver.Compute(10, 1000);
-            solver.Clustering(Math.Max(windowHeight,windowWidth));
+            ISRMUL.Recognition.MeanShift.MeanShiftSolver solver = new Recognition.MeanShift.MeanShiftSolver(new double[] { windowWidth, windowHeight }, points) { logger=log};
 
-            var symbols = solver.Clusters.Select(x => new SymbolWindow(key,this, x));
-            var original = getSymbolWindows(key);
-            original.Clear();
-            original.AddRange(symbols);
+            Task task = new Task(() =>
+            {
+                solver.Compute(10, 1000);
+                solver.Clustering(Math.Max(windowHeight, windowWidth));
+
+                var symbols = solver.Clusters.Select(x => new SymbolWindow(key, this, x));
+                var original = getSymbolWindows(key);
+                original.Clear();
+                original.AddRange(symbols);
+                log(1);
+            });
+
+            return task;
         }
 
         
