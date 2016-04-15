@@ -28,7 +28,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Button x:Name="RecognizeButton" Click="RecognizeButton_Click_1">
+            <Button x:Name="RecognizeButton" Click="RecognizeButton_Click_1" ToolTip="Распознать манускрипт">
                 <Image Source="/ISRMUL;component/Windows/images/learn.png"/>
             </Button>
         </Grid>

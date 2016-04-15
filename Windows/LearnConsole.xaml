@@ -12,10 +12,10 @@
             <ListBox x:Name="ConsoleBox" Background="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}"/>
         </ScrollViewer>
         <StackPanel Grid.Column="1">
-            <Button x:Name="LearningButton" Height="50" Click="LearningButton_Click_1">
+            <Button x:Name="LearningButton" Height="50" Click="LearningButton_Click_1" ToolTip="Подготовить модуль обучения">
                 <Image Source="images/learn.png"/>
             </Button>
-            <Button x:Name="MakeButton" Height="250" Click="MakeButton_Click_1">
+            <Button x:Name="MakeButton" Height="250" Click="MakeButton_Click_1" ToolTip="Сформировать алфавит">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="3*"/>
@@ -27,7 +27,7 @@
                     <Image Source="images/make.png" Grid.Row="2"/> 
                 </Grid>
             </Button>
-            <Button x:Name="LearnInterploatingButton" Height="180" Click="LearnInterploatingButton_Click_1">
+            <Button x:Name="LearnInterploatingButton" Height="180" Click="LearnInterploatingButton_Click_1" ToolTip="Подготовить модуль распознавания">
                 <Image Source="images/learn.png"/>
             </Button>
         </StackPanel>

@@ -12,9 +12,6 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions> 
         <Border Grid.Row="1" BorderThickness="0,2">
-            <Border.Effect>
-                <DropShadowEffect/>
-            </Border.Effect>
             <Image Name="Image" Source="images/error.png" Stretch="Fill"/>
         </Border>
         <TextBlock Name="PageName" Text="Ошибка" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Times New Roman" FontSize="14" />

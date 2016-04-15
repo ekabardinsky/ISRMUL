@@ -12,20 +12,9 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="4*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <ScrollViewer Grid.Row="0">
+            <ScrollViewer>
                 <WrapPanel x:Name="AlphabetWrapPanel" />
-            </ScrollViewer>
-            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,2,0,0">
-                <Grid Margin="25,0" Height="50">
-                    <TextBox  Width="200"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Text="{Binding ElementName=Tool, Path=alphabetToolViewProject.CurrentAlphabet.Code, Mode=OneWay}" TextChanged="TextBox_TextChanged_1" FontSize="14"/>
-                    <TextBlock Text="Код символа" FontSize="14" Height="20" VerticalAlignment="Top" />
-                </Grid>
-            </Border>
-            
+            </ScrollViewer>             
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -33,15 +22,20 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" x:Name="addButton" Click="addButton_Click_1">
+            <Button Grid.Row="0" x:Name="addButton" Click="addButton_Click_1" ToolTip="Добавить набор для символа">
                 <Image Source="images/folder.png"/>
             </Button>
-            <Button Grid.Row="1" x:Name="removeButton" Click="removeButton_Click_1">
+            <Button Grid.Row="1" x:Name="removeButton" Click="removeButton_Click_1" ToolTip="Удалить набор">
                 <Image Source="images/delete.png"/>
             </Button>
-            <Button Grid.Row="2" x:Name="unionButton" Click="unionButton_Click_1">
-                <Image Source="images/union.png"/>
-            </Button>
+            <Grid Grid.Row="2" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition x:Name="FieldGrid" Height="2*"/>
+                </Grid.RowDefinitions>
+                <TextBox  Grid.Row="1"  Height="{Binding Height, ElementName=FieldGrid, Mode=OneWay}" Text="{Binding ElementName=Tool, Path=alphabetToolViewProject.CurrentAlphabet.Code, Mode=OneWay}" TextChanged="TextBox_TextChanged_1" FontSize="14" Width="{Binding ActualWidth, ElementName=FieldGrid, Mode=OneWay}"/>
+                <TextBlock Grid.Row="0" Text="Код символа" FontSize="14" Height="20" VerticalAlignment="Bottom" />
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

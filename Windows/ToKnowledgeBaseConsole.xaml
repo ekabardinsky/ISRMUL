@@ -24,7 +24,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
-            <Button x:Name="LearnButton" Click="LearnButton_Click_1"  Grid.Row="0">
+            <Button x:Name="LearnButton" Click="LearnButton_Click_1"  Grid.Row="0" ToolTip="Исправить">
                 <Image Source="/ISRMUL;component/Control/Alphabet/images/refresh.png"/>
             </Button>
             

@@ -30,10 +30,10 @@
                 </ListBox>
             </ScrollViewer>
         </Border>
-        <Button Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" BorderThickness="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Delete_Click">
+        <Button Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" BorderThickness="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Delete_Click" ToolTip="Удалить страницу">
             <Image Source="images/delete.png"/>
         </Button>
-        <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" BorderThickness="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Insert_Click">
+        <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" BorderThickness="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Insert_Click" ToolTip="Добавить страницу">
             <Image Source="images/add.png"/>
         </Button>
     </Grid>
