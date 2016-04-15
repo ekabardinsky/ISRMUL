@@ -127,6 +127,7 @@ namespace ISRMUL.Recognition.MeanShift
         {
             double E = double.MaxValue;
             double Emax = 0;
+            List<double> Es = new List<double>();
             for (int t = 0; t < iteration&&E>e; t++)
             {
                 E = Shift();
@@ -134,7 +135,10 @@ namespace ISRMUL.Recognition.MeanShift
                     Emax = E;
                 if (logger != null)
                 {
-                    logger((1 - E / Emax)*100);
+                    Es.Add(E);
+                    if (Es.Count > 10)
+                        Es.RemoveAt(0);
+                    logger((1 - (Es.Sum()/Es.Count) / Emax) * 100);
                 }
             }
         }

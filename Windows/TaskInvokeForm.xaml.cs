@@ -39,7 +39,15 @@ namespace ISRMUL.Windows
         {
             var timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 200);
-            timer.Tick += (a, b) => { percent = Math.Round(TaskBuffer.Buffer, 2); if (percent == 1) { percent = 0; this.Close(); } };
+            timer.Tick += (a, b) => { 
+                percent = Math.Round(TaskBuffer.Buffer, 2); 
+                if (percent == 1) 
+                { 
+                    TaskBuffer.Buffer = 0;
+                    timer.Stop();
+                    this.Close(); 
+                } 
+            };
             timer.Start();
 
             Task t = new System.Threading.Tasks.Task(() =>
