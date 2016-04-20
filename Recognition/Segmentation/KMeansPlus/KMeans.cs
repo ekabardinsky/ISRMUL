@@ -8,7 +8,7 @@ namespace ISRMUL.Recognition.KMeansPlus
 {
     class KMeans
     {
-        public IDistansion Distanse;
+        public IDistansion Distance;
         public List<Cluster> Clusters { get; set; }
         public List<Vector> Vectors { get; set; }
         public int VectorSize { get; set; }
@@ -20,7 +20,7 @@ namespace ISRMUL.Recognition.KMeansPlus
             Vectors = data;
             K = k;
             Clusters = new List<Cluster>();
-            this.Distanse = DX;
+            this.Distance = DX;
         }
 
         public Vector GetFirsCentr()
@@ -30,7 +30,7 @@ namespace ISRMUL.Recognition.KMeansPlus
 
         public void InitializeCentroids()
         {
-            InitializeCentroids(Distanse);
+            InitializeCentroids(Distance);
         }
         public void InitializeCentroids(IDistansion DX)
         {
@@ -119,7 +119,7 @@ namespace ISRMUL.Recognition.KMeansPlus
             {
                 List<double> dist = new List<double>();
                 foreach(Cluster c in Clusters)
-                    dist.Add(Distanse.Calculate(c.C,v)); 
+                    dist.Add(Distance.Calculate(c.C,v)); 
 
                 int ind = dist.IndexOf(dist.Min());
                 v.Cluster = Clusters[ind];
